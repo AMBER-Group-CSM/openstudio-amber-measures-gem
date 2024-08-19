@@ -1,0 +1,159 @@
+<?xml version="1.0"?>
+<measure>
+  <schema_version>3.1</schema_version>
+  <name>export_model_with_measure_changes</name>
+  <uid>32bb20b8-b6da-4385-93bc-f574ecd82168</uid>
+  <version_id>2c2a35de-79dc-47e2-9917-fa7ba6c30710</version_id>
+  <version_modified>2024-08-19T16:33:31Z</version_modified>
+  <xml_checksum>B2459442</xml_checksum>
+  <class_name>ExportModelWithMeasureChanges</class_name>
+  <display_name>Export Model with Measure Changes</display_name>
+  <description>This measure exports the in.osm file created for the simulation, moves it to a specified directory, and renames it. The default name is {name_of_parent_model}_wMeasures.osm, but a custom name can be specified.</description>
+  <modeler_description>This measure is useful for archiving the modified OSM file after measures have been applied and simulations have been run. The exported file can be saved to the OpenStudio "reports" directory or a custom path. A custom name for the exported file can also be specified, with an option to add an incrementing version number.</modeler_description>
+  <arguments>
+    <argument>
+      <name>custom_name</name>
+      <display_name>Custom File Name</display_name>
+      <description>Specify a custom name for the exported OSM file. Do not include the .osm extension. If left blank, the default name will be used.</description>
+      <type>String</type>
+      <required>false</required>
+      <model_dependent>false</model_dependent>
+    </argument>
+    <argument>
+      <name>destination_dir</name>
+      <display_name>Destination Directory</display_name>
+      <type>Choice</type>
+      <required>true</required>
+      <model_dependent>false</model_dependent>
+      <default_value>Generated Files Directory</default_value>
+      <choices>
+        <choice>
+          <value>Generated Files Directory</value>
+          <display_name>Generated Files Directory</display_name>
+        </choice>
+        <choice>
+          <value>Custom Path</value>
+          <display_name>Custom Path</display_name>
+        </choice>
+      </choices>
+    </argument>
+    <argument>
+      <name>custom_path</name>
+      <display_name>Custom Path</display_name>
+      <description>Specify a custom path for the exported OSM file. This is used if "Custom Path" is selected as the destination directory.</description>
+      <type>String</type>
+      <required>false</required>
+      <model_dependent>false</model_dependent>
+    </argument>
+    <argument>
+      <name>use_versioning</name>
+      <display_name>Use Versioning</display_name>
+      <description>If selected, the exported file will have a version number appended to its name.</description>
+      <type>Boolean</type>
+      <required>true</required>
+      <model_dependent>false</model_dependent>
+      <default_value>false</default_value>
+      <choices>
+        <choice>
+          <value>true</value>
+          <display_name>true</display_name>
+        </choice>
+        <choice>
+          <value>false</value>
+          <display_name>false</display_name>
+        </choice>
+      </choices>
+    </argument>
+    <argument>
+      <name>version_suffix</name>
+      <display_name>Version Suffix</display_name>
+      <description>Specify a suffix to use before the version number. For example, "_v". This is used if versioning is enabled.</description>
+      <type>String</type>
+      <required>false</required>
+      <model_dependent>false</model_dependent>
+      <default_value></default_value>
+    </argument>
+  </arguments>
+  <outputs />
+  <provenances />
+  <tags>
+    <tag>Reporting.QAQC</tag>
+  </tags>
+  <attributes>
+    <attribute>
+      <name>Measure Type</name>
+      <value>ReportingMeasure</value>
+      <datatype>string</datatype>
+    </attribute>
+    <attribute>
+      <name>Measure Language</name>
+      <value>Ruby</value>
+      <datatype>string</datatype>
+    </attribute>
+    <attribute>
+      <name>Intended Software Tool</name>
+      <value>OpenStudio Application</value>
+      <datatype>string</datatype>
+    </attribute>
+    <attribute>
+      <name>Intended Software Tool</name>
+      <value>Parametric Analysis Tool</value>
+      <datatype>string</datatype>
+    </attribute>
+  </attributes>
+  <files>
+    <file>
+      <filename>LICENSE.md</filename>
+      <filetype>md</filetype>
+      <usage_type>license</usage_type>
+      <checksum>CD7F5672</checksum>
+    </file>
+    <file>
+      <filename>README.md</filename>
+      <filetype>md</filetype>
+      <usage_type>readme</usage_type>
+      <checksum>4EE23F84</checksum>
+    </file>
+    <file>
+      <filename>README.md.erb</filename>
+      <filetype>erb</filetype>
+      <usage_type>readmeerb</usage_type>
+      <checksum>F1C26127</checksum>
+    </file>
+    <file>
+      <filename>.gitkeep</filename>
+      <filetype>gitkeep</filetype>
+      <usage_type>doc</usage_type>
+      <checksum>00000000</checksum>
+    </file>
+    <file>
+      <version>
+        <software_program>OpenStudio</software_program>
+        <identifier>3.7.0</identifier>
+        <min_compatible>3.7.0</min_compatible>
+      </version>
+      <filename>measure.rb</filename>
+      <filetype>rb</filetype>
+      <usage_type>script</usage_type>
+      <checksum>22273BAE</checksum>
+    </file>
+    <file>
+      <filename>USA_CO_Golden-NREL.724666_TMY3.epw</filename>
+      <filetype>epw</filetype>
+      <usage_type>test</usage_type>
+      <checksum>BDF687C1</checksum>
+    </file>
+    <file>
+      <filename>example_model.osm</filename>
+      <filetype>osm</filetype>
+      <usage_type>test</usage_type>
+      <checksum>4490C500</checksum>
+    </file>
+    <file>
+      <filename>export_model_with_measure_changes_test.rb</filename>
+      <filetype>rb</filetype>
+      <usage_type>test</usage_type>
+      <checksum>99D2DBC0</checksum>
+    </file>
+  </files>
+</measure>
