@@ -1,0 +1,431 @@
+Running test_invalid_argument_values
+Setting inner_floor_clt_type to InvalidType was unsuccessful
+Setting inner_floor_clt_thickness to -0.1 was successful
+Setting roof_clt_type to SPF was successful
+Setting roof_clt_thickness to 0.1715 was successful
+Setting replace_external_walls to false was successful
+Setting facade_layer to None was successful
+Setting outer_insulation to Polyiso was successful
+Setting clt_layer to SPF was successful
+Setting inner_insulation to None was successful
+Setting inner_wall to None was successful
+Setting exterior_insulation_r_value to 5.28 was successful
+Setting interior_insulation_r_value to 0 was successful
+Setting roof_insulation_r_value to 5.28 was successful
+Setting wall_clt_layer_thickness to 0.1016 was successful
+Setting duplicate_all_sets to true was successful
+**MEASURE APPLICABILITY**
+1 = Fail
+**INITIAL CONDITION**
+**FINAL CONDITION**
+**INFO MESSAGES**
+Validating arguments...
+**WARNING MESSAGES**
+**ERROR MESSAGES**
+Invalid inner_floor_clt_thickness: -0.1
+Invalid inner_floor_clt_thickness: -0.1
+***Machine-Readable Attributes**
+[
+{
+   "name" : "inner_floor_clt_type",
+   "value" : "SPF"
+},{
+   "name" : "inner_floor_clt_thickness",
+   "value" : -0.10000000000000001
+},{
+   "name" : "roof_clt_type",
+   "value" : "SPF"
+},{
+   "name" : "roof_clt_thickness",
+   "value" : 0.17150000000000001
+},{
+   "name" : "replace_external_walls",
+   "value" : false
+},{
+   "name" : "facade_layer",
+   "value" : "None"
+},{
+   "name" : "outer_insulation",
+   "value" : "Polyiso"
+},{
+   "name" : "clt_layer",
+   "value" : "SPF"
+},{
+   "name" : "inner_insulation",
+   "value" : "None"
+},{
+   "name" : "inner_wall",
+   "value" : "None"
+},{
+   "name" : "exterior_insulation_r_value",
+   "value" : 5.2800000000000002
+},{
+   "name" : "interior_insulation_r_value",
+   "value" : 0.0
+},{
+   "name" : "roof_insulation_r_value",
+   "value" : 5.2800000000000002
+},{
+   "name" : "wall_clt_layer_thickness",
+   "value" : 0.1016
+},{
+   "name" : "duplicate_all_sets",
+   "value" : true
+}
+]
+***Files Generated**
+
+
+clt_layer: clt_layer (CLT Layer)
+Choice, Required
+Value: SPF (SPF)
+Choices:
+  None (None)
+  SPF (SPF)
+  DF (DF)
+duplicate_all_sets: duplicate_all_sets (Duplicate All Construction Sets)
+Boolean, Required
+Value: true (true)
+exterior_insulation_r_value: exterior_insulation_r_value (Exterior Insulation R-value)
+Double, Required
+Value: 5.28 (5.28)
+facade_layer: facade_layer (Facade Layer)
+Choice, Required
+Value: None (None)
+Choices:
+  None (None)
+  Brick (Brick)
+  Stucco (Stucco)
+  Metal Surface (Metal Surface)
+inner_floor_clt_thickness: inner_floor_clt_thickness (Inner Floor CLT Thickness)
+Double, Required
+Value: -0.1 (0.1016)
+inner_floor_clt_type: inner_floor_clt_type (Inner Floor CLT Type)
+Choice, Required
+Value: (SPF)
+Choices:
+  SPF (SPF)
+  DF (DF)
+inner_insulation: inner_insulation (Inner Insulation)
+Choice, Required
+Value: None (None)
+Choices:
+  None (None)
+  Fiberglass Batt (Fiberglass Batt)
+  Spray Foam (Spray Foam)
+inner_wall: inner_wall (Inner Wall)
+Choice, Required
+Value: None (None)
+Choices:
+  None (None)
+  Gypsum (Gypsum)
+interior_insulation_r_value: interior_insulation_r_value (Interior Insulation R-value)
+Double, Required
+Value: 0 (0)
+outer_insulation: outer_insulation (Outer Insulation)
+Choice, Required
+Value: Polyiso (Polyiso)
+Choices:
+  None (None)
+  Mineral Fiberboard (Mineral Fiberboard)
+  Polyiso (Polyiso)
+replace_external_walls: replace_external_walls (Replace External Walls with CLT)
+Boolean, Required
+Value: false (false)
+roof_clt_thickness: roof_clt_thickness (Roof CLT Thickness)
+Double, Required
+Value: 0.1715 (0.1715)
+roof_clt_type: roof_clt_type (Roof CLT Type)
+Choice, Required
+Value: SPF (SPF)
+Choices:
+  SPF (SPF)
+  DF (DF)
+roof_insulation_r_value: roof_insulation_r_value (Roof Insulation R-value)
+Double, Required
+Value: 5.28 (5.28)
+wall_clt_layer_thickness: wall_clt_layer_thickness (Wall CLT Layer Thickness)
+Double, Required
+Value: 0.1016 (0.1016)
+**MEASURE APPLICABILITY**
+1 = Fail
+**INITIAL CONDITION**
+**FINAL CONDITION**
+**INFO MESSAGES**
+Validating arguments...
+**WARNING MESSAGES**
+**ERROR MESSAGES**
+Invalid inner_floor_clt_thickness: -0.1
+Invalid inner_floor_clt_thickness: -0.1
+***Machine-Readable Attributes**
+[
+{
+   "name" : "inner_floor_clt_type",
+   "value" : "SPF"
+},{
+   "name" : "inner_floor_clt_thickness",
+   "value" : -0.10000000000000001
+},{
+   "name" : "roof_clt_type",
+   "value" : "SPF"
+},{
+   "name" : "roof_clt_thickness",
+   "value" : 0.17150000000000001
+},{
+   "name" : "replace_external_walls",
+   "value" : false
+},{
+   "name" : "facade_layer",
+   "value" : "None"
+},{
+   "name" : "outer_insulation",
+   "value" : "Polyiso"
+},{
+   "name" : "clt_layer",
+   "value" : "SPF"
+},{
+   "name" : "inner_insulation",
+   "value" : "None"
+},{
+   "name" : "inner_wall",
+   "value" : "None"
+},{
+   "name" : "exterior_insulation_r_value",
+   "value" : 5.2800000000000002
+},{
+   "name" : "interior_insulation_r_value",
+   "value" : 0.0
+},{
+   "name" : "roof_insulation_r_value",
+   "value" : 5.2800000000000002
+},{
+   "name" : "wall_clt_layer_thickness",
+   "value" : 0.1016
+},{
+   "name" : "duplicate_all_sets",
+   "value" : true
+}
+]
+***Files Generated**
+
+
+Run options: --seed 57973
+
+# Running:
+
+Running test_invalid_argument_values
+Setting inner_floor_clt_type to InvalidType was unsuccessful
+Setting inner_floor_clt_thickness to -0.1 was successful
+Setting roof_clt_type to SPF was successful
+Setting roof_clt_thickness to 0.1715 was successful
+Setting replace_external_walls to false was successful
+Setting facade_layer to None was successful
+Setting outer_insulation to Polyiso was successful
+Setting clt_layer to SPF was successful
+Setting inner_insulation to None was successful
+Setting inner_wall to None was successful
+Setting exterior_insulation_r_value to 5.28 was successful
+Setting interior_insulation_r_value to 0 was successful
+Setting roof_insulation_r_value to 5.28 was successful
+Setting wall_clt_layer_thickness to 0.1016 was successful
+Setting duplicate_all_sets to true was successful
+**MEASURE APPLICABILITY**
+1 = Fail
+**INITIAL CONDITION**
+**FINAL CONDITION**
+**INFO MESSAGES**
+Validating arguments...
+**WARNING MESSAGES**
+**ERROR MESSAGES**
+Invalid inner_floor_clt_thickness: -0.1
+Invalid inner_floor_clt_thickness: -0.1
+***Machine-Readable Attributes**
+[
+{
+   "name" : "inner_floor_clt_type",
+   "value" : "SPF"
+},{
+   "name" : "inner_floor_clt_thickness",
+   "value" : -0.10000000000000001
+},{
+   "name" : "roof_clt_type",
+   "value" : "SPF"
+},{
+   "name" : "roof_clt_thickness",
+   "value" : 0.17150000000000001
+},{
+   "name" : "replace_external_walls",
+   "value" : false
+},{
+   "name" : "facade_layer",
+   "value" : "None"
+},{
+   "name" : "outer_insulation",
+   "value" : "Polyiso"
+},{
+   "name" : "clt_layer",
+   "value" : "SPF"
+},{
+   "name" : "inner_insulation",
+   "value" : "None"
+},{
+   "name" : "inner_wall",
+   "value" : "None"
+},{
+   "name" : "exterior_insulation_r_value",
+   "value" : 5.2800000000000002
+},{
+   "name" : "interior_insulation_r_value",
+   "value" : 0.0
+},{
+   "name" : "roof_insulation_r_value",
+   "value" : 5.2800000000000002
+},{
+   "name" : "wall_clt_layer_thickness",
+   "value" : 0.1016
+},{
+   "name" : "duplicate_all_sets",
+   "value" : true
+}
+]
+***Files Generated**
+
+
+clt_layer: clt_layer (CLT Layer)
+Choice, Required
+Value: SPF (SPF)
+Choices:
+  None (None)
+  SPF (SPF)
+  DF (DF)
+duplicate_all_sets: duplicate_all_sets (Duplicate All Construction Sets)
+Boolean, Required
+Value: true (true)
+exterior_insulation_r_value: exterior_insulation_r_value (Exterior Insulation R-value)
+Double, Required
+Value: 5.28 (5.28)
+facade_layer: facade_layer (Facade Layer)
+Choice, Required
+Value: None (None)
+Choices:
+  None (None)
+  Brick (Brick)
+  Stucco (Stucco)
+  Metal Surface (Metal Surface)
+inner_floor_clt_thickness: inner_floor_clt_thickness (Inner Floor CLT Thickness)
+Double, Required
+Value: -0.1 (0.1016)
+inner_floor_clt_type: inner_floor_clt_type (Inner Floor CLT Type)
+Choice, Required
+Value: (SPF)
+Choices:
+  SPF (SPF)
+  DF (DF)
+inner_insulation: inner_insulation (Inner Insulation)
+Choice, Required
+Value: None (None)
+Choices:
+  None (None)
+  Fiberglass Batt (Fiberglass Batt)
+  Spray Foam (Spray Foam)
+inner_wall: inner_wall (Inner Wall)
+Choice, Required
+Value: None (None)
+Choices:
+  None (None)
+  Gypsum (Gypsum)
+interior_insulation_r_value: interior_insulation_r_value (Interior Insulation R-value)
+Double, Required
+Value: 0 (0)
+outer_insulation: outer_insulation (Outer Insulation)
+Choice, Required
+Value: Polyiso (Polyiso)
+Choices:
+  None (None)
+  Mineral Fiberboard (Mineral Fiberboard)
+  Polyiso (Polyiso)
+replace_external_walls: replace_external_walls (Replace External Walls with CLT)
+Boolean, Required
+Value: false (false)
+roof_clt_thickness: roof_clt_thickness (Roof CLT Thickness)
+Double, Required
+Value: 0.1715 (0.1715)
+roof_clt_type: roof_clt_type (Roof CLT Type)
+Choice, Required
+Value: SPF (SPF)
+Choices:
+  SPF (SPF)
+  DF (DF)
+roof_insulation_r_value: roof_insulation_r_value (Roof Insulation R-value)
+Double, Required
+Value: 5.28 (5.28)
+wall_clt_layer_thickness: wall_clt_layer_thickness (Wall CLT Layer Thickness)
+Double, Required
+Value: 0.1016 (0.1016)
+**MEASURE APPLICABILITY**
+1 = Fail
+**INITIAL CONDITION**
+**FINAL CONDITION**
+**INFO MESSAGES**
+Validating arguments...
+**WARNING MESSAGES**
+**ERROR MESSAGES**
+Invalid inner_floor_clt_thickness: -0.1
+Invalid inner_floor_clt_thickness: -0.1
+***Machine-Readable Attributes**
+[
+{
+   "name" : "inner_floor_clt_type",
+   "value" : "SPF"
+},{
+   "name" : "inner_floor_clt_thickness",
+   "value" : -0.10000000000000001
+},{
+   "name" : "roof_clt_type",
+   "value" : "SPF"
+},{
+   "name" : "roof_clt_thickness",
+   "value" : 0.17150000000000001
+},{
+   "name" : "replace_external_walls",
+   "value" : false
+},{
+   "name" : "facade_layer",
+   "value" : "None"
+},{
+   "name" : "outer_insulation",
+   "value" : "Polyiso"
+},{
+   "name" : "clt_layer",
+   "value" : "SPF"
+},{
+   "name" : "inner_insulation",
+   "value" : "None"
+},{
+   "name" : "inner_wall",
+   "value" : "None"
+},{
+   "name" : "exterior_insulation_r_value",
+   "value" : 5.2800000000000002
+},{
+   "name" : "interior_insulation_r_value",
+   "value" : 0.0
+},{
+   "name" : "roof_insulation_r_value",
+   "value" : 5.2800000000000002
+},{
+   "name" : "wall_clt_layer_thickness",
+   "value" : 0.1016
+},{
+   "name" : "duplicate_all_sets",
+   "value" : true
+}
+]
+***Files Generated**
+
+
+.
+
+Finished in 0.002480s, 403.1770 runs/s, 6854.0095 assertions/s.
+
+1 runs, 17 assertions, 0 failures, 0 errors, 0 skips

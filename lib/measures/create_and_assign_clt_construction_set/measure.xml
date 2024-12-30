@@ -1,0 +1,577 @@
+<?xml version="1.0"?>
+<measure>
+  <schema_version>3.1</schema_version>
+  <name>create_and_assign_clt_construction_set</name>
+  <uid>56b4745a-ab7e-48e4-9a81-7f4f917994ab</uid>
+  <version_id>1dbcc7a8-146a-4288-b0a4-6b0d7fd58444</version_id>
+  <version_modified>2024-09-26T01:41:26Z</version_modified>
+  <xml_checksum>BA539147</xml_checksum>
+  <class_name>CreateAndAssignCLTConstructionSet</class_name>
+  <display_name>Create and Assign CLT Construction Set</display_name>
+  <description>This measure allows a modeler to change the construction set in their model for a CLT construction set. The measure includes options for CLT exterior walls, CLT interior floors, and roof. It also provides options to infer insulation levels from existing constructions, replace external walls, and specify custom thickness for CLT layers. Additionally, it allows duplicating existing construction sets to preserve originals and includes detailed R-value calculations in construction names.</description>
+  <modeler_description>This measure enables the assignment of CLT construction sets to a model. Features include specifying CLT types and plies for inner floors, roofs, and walls, with the option to use custom thicknesses. The measure can infer insulation levels based on existing constructions, splitting required R-values between exterior and interior insulation if specified. It supports duplicating existing construction sets for preservation and ensures that inner floors and ceilings share the same construction. The measure also calculates and includes the effective R-value in the construction names.</modeler_description>
+  <arguments>
+    <argument>
+      <name>exclude_construction_sets</name>
+      <display_name>Exclude Construction Sets</display_name>
+      <description>Comma-separated list of strings to match construction set names against. If a match is found, those construction sets will be excluded from modification.</description>
+      <type>String</type>
+      <required>false</required>
+      <model_dependent>false</model_dependent>
+      <default_value></default_value>
+    </argument>
+    <argument>
+      <name>duplicate_all_sets</name>
+      <display_name>Duplicate All Construction Sets</display_name>
+      <description>If true, all existing construction sets will be duplicated and modified, preserving the originals.</description>
+      <type>Boolean</type>
+      <required>true</required>
+      <model_dependent>false</model_dependent>
+      <default_value>true</default_value>
+      <choices>
+        <choice>
+          <value>true</value>
+          <display_name>true</display_name>
+        </choice>
+        <choice>
+          <value>false</value>
+          <display_name>false</display_name>
+        </choice>
+      </choices>
+    </argument>
+    <argument>
+      <name>use_custom_inner_floor_thickness</name>
+      <display_name>Use Custom Inner Floor Thickness</display_name>
+      <description>If true, the specified custom thickness will be used for the inner floor CLT. Otherwise, the thickness will be calculated based on the selected ply.</description>
+      <type>Boolean</type>
+      <required>true</required>
+      <model_dependent>false</model_dependent>
+      <default_value>false</default_value>
+      <choices>
+        <choice>
+          <value>true</value>
+          <display_name>true</display_name>
+        </choice>
+        <choice>
+          <value>false</value>
+          <display_name>false</display_name>
+        </choice>
+      </choices>
+    </argument>
+    <argument>
+      <name>use_custom_roof_thickness</name>
+      <display_name>Use Custom Roof Thickness</display_name>
+      <description>If true, the specified custom thickness will be used for the roof CLT. Otherwise, the thickness will be calculated based on the selected ply.</description>
+      <type>Boolean</type>
+      <required>true</required>
+      <model_dependent>false</model_dependent>
+      <default_value>false</default_value>
+      <choices>
+        <choice>
+          <value>true</value>
+          <display_name>true</display_name>
+        </choice>
+        <choice>
+          <value>false</value>
+          <display_name>false</display_name>
+        </choice>
+      </choices>
+    </argument>
+    <argument>
+      <name>replace_external_walls</name>
+      <display_name>Replace External Walls with CLT</display_name>
+      <description>If true, the external walls will be replaced with CLT constructions.</description>
+      <type>Boolean</type>
+      <required>true</required>
+      <model_dependent>false</model_dependent>
+      <default_value>false</default_value>
+      <choices>
+        <choice>
+          <value>true</value>
+          <display_name>true</display_name>
+        </choice>
+        <choice>
+          <value>false</value>
+          <display_name>false</display_name>
+        </choice>
+      </choices>
+    </argument>
+    <argument>
+      <name>use_custom_wall_thickness</name>
+      <display_name>Use Custom Wall Thickness</display_name>
+      <description>If true, the specified custom thickness will be used for the wall CLT. Otherwise, the thickness will be calculated based on the selected ply.</description>
+      <type>Boolean</type>
+      <required>true</required>
+      <model_dependent>false</model_dependent>
+      <default_value>false</default_value>
+      <choices>
+        <choice>
+          <value>true</value>
+          <display_name>true</display_name>
+        </choice>
+        <choice>
+          <value>false</value>
+          <display_name>false</display_name>
+        </choice>
+      </choices>
+    </argument>
+    <argument>
+      <name>infer_insulation_levels</name>
+      <display_name>Infer Insulation Levels from Existing Constructions</display_name>
+      <description>If true, the measure will analyze existing wall and roof constructions to infer insulation levels and apply them to the new CLT constructions.</description>
+      <type>Boolean</type>
+      <required>true</required>
+      <model_dependent>false</model_dependent>
+      <default_value>false</default_value>
+      <choices>
+        <choice>
+          <value>true</value>
+          <display_name>true</display_name>
+        </choice>
+        <choice>
+          <value>false</value>
+          <display_name>false</display_name>
+        </choice>
+      </choices>
+    </argument>
+    <argument>
+      <name>inner_floor_clt_type</name>
+      <display_name>Inner Floor CLT Type</display_name>
+      <description>Select the type of CLT for the inner floor.</description>
+      <type>Choice</type>
+      <required>true</required>
+      <model_dependent>false</model_dependent>
+      <default_value>SPF</default_value>
+      <choices>
+        <choice>
+          <value>SPF</value>
+          <display_name>SPF</display_name>
+        </choice>
+        <choice>
+          <value>DF</value>
+          <display_name>DF</display_name>
+        </choice>
+      </choices>
+    </argument>
+    <argument>
+      <name>inner_floor_clt_ply</name>
+      <display_name>Inner Floor CLT Ply</display_name>
+      <description>Select the number of plies for the inner floor CLT.</description>
+      <type>Choice</type>
+      <required>true</required>
+      <model_dependent>false</model_dependent>
+      <default_value>3</default_value>
+      <choices>
+        <choice>
+          <value>3</value>
+          <display_name>3</display_name>
+        </choice>
+        <choice>
+          <value>5</value>
+          <display_name>5</display_name>
+        </choice>
+        <choice>
+          <value>7</value>
+          <display_name>7</display_name>
+        </choice>
+        <choice>
+          <value>9</value>
+          <display_name>9</display_name>
+        </choice>
+        <choice>
+          <value>11</value>
+          <display_name>11</display_name>
+        </choice>
+      </choices>
+    </argument>
+    <argument>
+      <name>inner_floor_clt_thickness</name>
+      <display_name>Custom Inner Floor CLT Thickness</display_name>
+      <description>Specify the custom thickness for the inner floor CLT if "Use Custom Inner Floor Thickness" is true.</description>
+      <type>Double</type>
+      <required>true</required>
+      <model_dependent>false</model_dependent>
+      <default_value>0.1016</default_value>
+    </argument>
+    <argument>
+      <name>roof_clt_type</name>
+      <display_name>Roof CLT Type</display_name>
+      <description>Select the type of CLT for the roof.</description>
+      <type>Choice</type>
+      <required>true</required>
+      <model_dependent>false</model_dependent>
+      <default_value>SPF</default_value>
+      <choices>
+        <choice>
+          <value>SPF</value>
+          <display_name>SPF</display_name>
+        </choice>
+        <choice>
+          <value>DF</value>
+          <display_name>DF</display_name>
+        </choice>
+      </choices>
+    </argument>
+    <argument>
+      <name>roof_clt_ply</name>
+      <display_name>Roof CLT Ply</display_name>
+      <description>Select the number of plies for the roof CLT.</description>
+      <type>Choice</type>
+      <required>true</required>
+      <model_dependent>false</model_dependent>
+      <default_value>3</default_value>
+      <choices>
+        <choice>
+          <value>3</value>
+          <display_name>3</display_name>
+        </choice>
+        <choice>
+          <value>5</value>
+          <display_name>5</display_name>
+        </choice>
+        <choice>
+          <value>7</value>
+          <display_name>7</display_name>
+        </choice>
+        <choice>
+          <value>9</value>
+          <display_name>9</display_name>
+        </choice>
+        <choice>
+          <value>11</value>
+          <display_name>11</display_name>
+        </choice>
+      </choices>
+    </argument>
+    <argument>
+      <name>roof_clt_thickness</name>
+      <display_name>Custom Roof CLT Thickness</display_name>
+      <description>Specify the custom thickness for the roof CLT if "Use Custom Roof Thickness" is true.</description>
+      <type>Double</type>
+      <required>true</required>
+      <model_dependent>false</model_dependent>
+      <default_value>0.1715</default_value>
+    </argument>
+    <argument>
+      <name>roof_insulation_r_value</name>
+      <display_name>Roof Insulation R-value</display_name>
+      <description>Specify the R-value for the roof insulation.</description>
+      <type>Double</type>
+      <required>true</required>
+      <model_dependent>false</model_dependent>
+      <default_value>5.28</default_value>
+    </argument>
+    <argument>
+      <name>facade_layer</name>
+      <display_name>Facade Layer</display_name>
+      <description>Select the facade layer to be applied on the exterior walls.</description>
+      <type>Choice</type>
+      <required>true</required>
+      <model_dependent>false</model_dependent>
+      <default_value>None</default_value>
+      <choices>
+        <choice>
+          <value>None</value>
+          <display_name>None</display_name>
+        </choice>
+        <choice>
+          <value>Brick</value>
+          <display_name>Brick</display_name>
+        </choice>
+        <choice>
+          <value>Stucco</value>
+          <display_name>Stucco</display_name>
+        </choice>
+        <choice>
+          <value>Metal Surface</value>
+          <display_name>Metal Surface</display_name>
+        </choice>
+      </choices>
+    </argument>
+    <argument>
+      <name>outer_insulation</name>
+      <display_name>Exterior Insulation</display_name>
+      <description>Select the type of outer insulation for the exterior walls.</description>
+      <type>Choice</type>
+      <required>true</required>
+      <model_dependent>false</model_dependent>
+      <default_value>Polyiso</default_value>
+      <choices>
+        <choice>
+          <value>None</value>
+          <display_name>None</display_name>
+        </choice>
+        <choice>
+          <value>Mineral Fiberboard</value>
+          <display_name>Mineral Fiberboard</display_name>
+        </choice>
+        <choice>
+          <value>Polyiso</value>
+          <display_name>Polyiso</display_name>
+        </choice>
+      </choices>
+    </argument>
+    <argument>
+      <name>exterior_insulation_r_value</name>
+      <display_name>Exterior Insulation R-value</display_name>
+      <description>Specify the R-value for the exterior insulation.</description>
+      <type>Double</type>
+      <required>true</required>
+      <model_dependent>false</model_dependent>
+      <default_value>5.28</default_value>
+    </argument>
+    <argument>
+      <name>clt_layer</name>
+      <display_name>CLT Layer</display_name>
+      <description>Select the type of CLT layer to be used.</description>
+      <type>Choice</type>
+      <required>true</required>
+      <model_dependent>false</model_dependent>
+      <default_value>SPF</default_value>
+      <choices>
+        <choice>
+          <value>None</value>
+          <display_name>None</display_name>
+        </choice>
+        <choice>
+          <value>SPF</value>
+          <display_name>SPF</display_name>
+        </choice>
+        <choice>
+          <value>DF</value>
+          <display_name>DF</display_name>
+        </choice>
+      </choices>
+    </argument>
+    <argument>
+      <name>wall_clt_ply</name>
+      <display_name>Wall CLT Ply</display_name>
+      <description>Select the number of plies for the wall CLT.</description>
+      <type>Choice</type>
+      <required>true</required>
+      <model_dependent>false</model_dependent>
+      <default_value>3</default_value>
+      <choices>
+        <choice>
+          <value>3</value>
+          <display_name>3</display_name>
+        </choice>
+        <choice>
+          <value>5</value>
+          <display_name>5</display_name>
+        </choice>
+        <choice>
+          <value>7</value>
+          <display_name>7</display_name>
+        </choice>
+        <choice>
+          <value>9</value>
+          <display_name>9</display_name>
+        </choice>
+        <choice>
+          <value>11</value>
+          <display_name>11</display_name>
+        </choice>
+      </choices>
+    </argument>
+    <argument>
+      <name>wall_clt_layer_thickness</name>
+      <display_name>Custom Wall CLT Layer Thickness</display_name>
+      <description>Specify the custom thickness for the wall CLT if "Use Custom Wall Thickness" is true.</description>
+      <type>Double</type>
+      <required>true</required>
+      <model_dependent>false</model_dependent>
+      <default_value>0.1016</default_value>
+    </argument>
+    <argument>
+      <name>inner_insulation</name>
+      <display_name>Inner Insulation</display_name>
+      <description>Select the type of inner insulation for the interior walls.</description>
+      <type>Choice</type>
+      <required>true</required>
+      <model_dependent>false</model_dependent>
+      <default_value>None</default_value>
+      <choices>
+        <choice>
+          <value>None</value>
+          <display_name>None</display_name>
+        </choice>
+        <choice>
+          <value>Fiberglass Batt</value>
+          <display_name>Fiberglass Batt</display_name>
+        </choice>
+        <choice>
+          <value>Spray Foam</value>
+          <display_name>Spray Foam</display_name>
+        </choice>
+      </choices>
+    </argument>
+    <argument>
+      <name>interior_insulation_r_value</name>
+      <display_name>Interior Insulation R-value</display_name>
+      <description>Specify the R-value for the interior insulation.</description>
+      <type>Double</type>
+      <required>true</required>
+      <model_dependent>false</model_dependent>
+      <default_value>0</default_value>
+    </argument>
+    <argument>
+      <name>inner_wall</name>
+      <display_name>Inner Wall Face Layer</display_name>
+      <description>Select the type of inner wall face layer.</description>
+      <type>Choice</type>
+      <required>true</required>
+      <model_dependent>false</model_dependent>
+      <default_value>None</default_value>
+      <choices>
+        <choice>
+          <value>None</value>
+          <display_name>None</display_name>
+        </choice>
+        <choice>
+          <value>Gypsum</value>
+          <display_name>Gypsum</display_name>
+        </choice>
+      </choices>
+    </argument>
+  </arguments>
+  <outputs />
+  <provenances />
+  <tags>
+    <tag>Envelope.Opaque</tag>
+  </tags>
+  <attributes>
+    <attribute>
+      <name>Measure Type</name>
+      <value>ModelMeasure</value>
+      <datatype>string</datatype>
+    </attribute>
+    <attribute>
+      <name>Measure Language</name>
+      <value>Ruby</value>
+      <datatype>string</datatype>
+    </attribute>
+    <attribute>
+      <name>Intended Software Tool</name>
+      <value>Apply Measure Now</value>
+      <datatype>string</datatype>
+    </attribute>
+    <attribute>
+      <name>Intended Software Tool</name>
+      <value>OpenStudio Application</value>
+      <datatype>string</datatype>
+    </attribute>
+    <attribute>
+      <name>Intended Software Tool</name>
+      <value>Parametric Analysis Tool</value>
+      <datatype>string</datatype>
+    </attribute>
+    <attribute>
+      <name>Intended Use Case</name>
+      <value>Model Articulation</value>
+      <datatype>string</datatype>
+    </attribute>
+    <attribute>
+      <name>Intended Use Case</name>
+      <value>Sensitivity Analysis</value>
+      <datatype>string</datatype>
+    </attribute>
+  </attributes>
+  <files>
+    <file>
+      <filename>LICENSE.md</filename>
+      <filetype>md</filetype>
+      <usage_type>license</usage_type>
+      <checksum>CD7F5672</checksum>
+    </file>
+    <file>
+      <filename>README.md</filename>
+      <filetype>md</filetype>
+      <usage_type>readme</usage_type>
+      <checksum>96E764B9</checksum>
+    </file>
+    <file>
+      <filename>README.md.erb</filename>
+      <filetype>erb</filetype>
+      <usage_type>readmeerb</usage_type>
+      <checksum>F1C26127</checksum>
+    </file>
+    <file>
+      <filename>Create_and_Assign_CLT_Construction_Set_Documentation.md</filename>
+      <filetype>md</filetype>
+      <usage_type>doc</usage_type>
+      <checksum>9E3C5E6B</checksum>
+    </file>
+    <file>
+      <filename>Create_and_Assign_CLT_Construction_Set_Documentation.pdf</filename>
+      <filetype>pdf</filetype>
+      <usage_type>doc</usage_type>
+      <checksum>E7790961</checksum>
+    </file>
+    <file>
+      <version>
+        <software_program>OpenStudio</software_program>
+        <identifier>3.7.0</identifier>
+        <min_compatible>3.7.0</min_compatible>
+      </version>
+      <filename>measure.rb</filename>
+      <filetype>rb</filetype>
+      <usage_type>script</usage_type>
+      <checksum>89889E67</checksum>
+    </file>
+    <file>
+      <filename>USA_CO_Golden-NREL.724666_TMY3.epw</filename>
+      <filetype>epw</filetype>
+      <usage_type>test</usage_type>
+      <checksum>BDF687C1</checksum>
+    </file>
+    <file>
+      <filename>create_and_assign_CLT_simulation_test.rb</filename>
+      <filetype>rb</filetype>
+      <usage_type>test</usage_type>
+      <checksum>136A982E</checksum>
+    </file>
+    <file>
+      <filename>create_and_assign_clt_construction_set_test.rb</filename>
+      <filetype>rb</filetype>
+      <usage_type>test</usage_type>
+      <checksum>49631A15</checksum>
+    </file>
+    <file>
+      <filename>example_model.osm</filename>
+      <filetype>osm</filetype>
+      <usage_type>test</usage_type>
+      <checksum>53D14E69</checksum>
+    </file>
+    <file>
+      <filename>invalid_args_test_output.txt</filename>
+      <filetype>txt</filetype>
+      <usage_type>test</usage_type>
+      <checksum>26E23146</checksum>
+    </file>
+    <file>
+      <filename>invalid_arguments_test.rb</filename>
+      <filetype>rb</filetype>
+      <usage_type>test</usage_type>
+      <checksum>82B7DA4E</checksum>
+    </file>
+    <file>
+      <filename>output.txt</filename>
+      <filetype>txt</filetype>
+      <usage_type>test</usage_type>
+      <checksum>51B9A4C3</checksum>
+    </file>
+    <file>
+      <filename>output2.txt</filename>
+      <filetype>txt</filetype>
+      <usage_type>test</usage_type>
+      <checksum>42498C62</checksum>
+    </file>
+    <file>
+      <filename>test_output.txt</filename>
+      <filetype>txt</filetype>
+      <usage_type>test</usage_type>
+      <checksum>B80C88D4</checksum>
+    </file>
+  </files>
+</measure>

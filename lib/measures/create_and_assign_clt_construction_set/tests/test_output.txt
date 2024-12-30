@@ -1,0 +1,411 @@
+Run options: --seed 9338
+
+# Running:
+
+Running test_update_only_default_construction_set
+Setting inner_floor_clt_type to SPF was successful
+Setting inner_floor_clt_thickness to 0.1016 was successful
+Setting roof_clt_type to DF was successful
+Setting roof_clt_thickness to 0.1715 was successful
+Setting replace_external_walls to false was successful
+Setting duplicate_all_sets to false was successful
+[openstudio.measure.OSRunner] <1> Cannot find current Workflow Step
+**MEASURE APPLICABILITY**
+[openstudio.WorkflowStepResult] <0> WorkflowStepResult value called with undefined stepResult, returning 'Success'
+0 = Success
+**INITIAL CONDITION**
+The model started with 0 materials, 4 constructions, and 2 construction sets. The default construction set was 'Default Construction Set 1'.
+**FINAL CONDITION**
+The model ended with 4 materials, 7 constructions, and 2 construction sets. The default construction set is now 'Default Construction Set 1 with CLT'. Created new CLT constructions and assigned them to new construction sets.
+**INFO MESSAGES**
+Validating arguments...
+All argument values are valid.
+Creating material: SPF
+Creating material: DF
+Creating material: Polyiso
+Modifying the existing construction sets in place with CLT constructions.
+Creating material: Lightweight Concrete
+Creating or Modifying Default Construction Set 2 with CLT
+defaultInteriorSurfaceConstructions for 'Default Construction Set 2 with CLT' floors and ceilings updated with CLT constructions.
+defaultExteriorSurfaceConstructions for 'Default Construction Set 2 with CLT' roof updated with CLT constructions.
+Creating or Modifying Default Construction Set 1 with CLT
+No defaultInteriorSurfaceConstructions found for 'Default Construction Set 1 with CLT' floors and ceilings, created new default constructions.
+No defaultExteriorSurfaceConstructions found for 'Default Construction Set 1 with CLT' roof, created new default constructions.
+**WARNING MESSAGES**
+**ERROR MESSAGES**
+***Machine-Readable Attributes**
+[
+{
+   "name" : "inner_floor_clt_type",
+   "value" : "SPF"
+},{
+   "name" : "inner_floor_clt_ply",
+   "value" : "3"
+},{
+   "name" : "inner_floor_clt_thickness",
+   "value" : 0.1016
+},{
+   "name" : "roof_clt_type",
+   "value" : "DF"
+},{
+   "name" : "roof_clt_ply",
+   "value" : "3"
+},{
+   "name" : "roof_clt_thickness",
+   "value" : 0.17150000000000001
+},{
+   "name" : "replace_external_walls",
+   "value" : false
+},{
+   "name" : "facade_layer",
+   "value" : "None"
+},{
+   "name" : "outer_insulation",
+   "value" : "Polyiso"
+},{
+   "name" : "clt_layer",
+   "value" : "SPF"
+},{
+   "name" : "inner_insulation",
+   "value" : "None"
+},{
+   "name" : "inner_wall",
+   "value" : "None"
+},{
+   "name" : "exterior_insulation_r_value",
+   "value" : 5.2800000000000002
+},{
+   "name" : "interior_insulation_r_value",
+   "value" : 0.0
+},{
+   "name" : "roof_insulation_r_value",
+   "value" : 5.2800000000000002
+},{
+   "name" : "wall_clt_ply",
+   "value" : "3"
+},{
+   "name" : "wall_clt_layer_thickness",
+   "value" : 0.1016
+},{
+   "name" : "duplicate_all_sets",
+   "value" : false
+}
+]
+***Files Generated**
+
+
+[openstudio.WorkflowStepResult] <0> WorkflowStepResult value called with undefined stepResult, returning 'Success'
+.Running test_invalid_argument_values
+Setting inner_floor_clt_type to InvalidType was unsuccessful
+Setting inner_floor_clt_thickness to -0.1 was successful
+[openstudio.measure.OSRunner] <1> Cannot find current Workflow Step
+**MEASURE APPLICABILITY**
+[openstudio.WorkflowStepResult] <0> WorkflowStepResult value called with undefined stepResult, returning 'Success'
+0 = Success
+**INITIAL CONDITION**
+The model started with 0 materials, 4 constructions, and 2 construction sets. The default construction set was 'Default Construction Set 1'.
+**FINAL CONDITION**
+The model ended with 3 materials, 7 constructions, and 4 construction sets. The default construction set is now 'Default Construction Set 1 with CLT'. Created new CLT constructions and assigned them to new construction sets.
+**INFO MESSAGES**
+Validating arguments...
+All argument values are valid.
+Creating material: SPF
+Creating material: Polyiso
+Duplicating existing construction sets to leave the original in place for comparison.
+Creating material: Lightweight Concrete
+Creating or Modifying Default Construction Set 1 with CLT
+No defaultInteriorSurfaceConstructions found for 'Default Construction Set 1 with CLT' floors and ceilings, created new default constructions.
+No defaultExteriorSurfaceConstructions found for 'Default Construction Set 1 with CLT' roof, created new default constructions.
+Updated Default Building Construction Set to use Default Construction Set 1 with CLT
+Creating or Modifying Default Construction Set 2 with CLT
+defaultInteriorSurfaceConstructions for 'Default Construction Set 2 with CLT' floors and ceilings updated with CLT constructions.
+defaultExteriorSurfaceConstructions for 'Default Construction Set 2 with CLT' roof updated with CLT constructions.
+Updated Space 1 Space to use Default Construction Set 2 with CLT
+**WARNING MESSAGES**
+**ERROR MESSAGES**
+***Machine-Readable Attributes**
+[
+{
+   "name" : "inner_floor_clt_type",
+   "value" : "SPF"
+},{
+   "name" : "inner_floor_clt_ply",
+   "value" : "3"
+},{
+   "name" : "inner_floor_clt_thickness",
+   "value" : -0.10000000000000001
+},{
+   "name" : "roof_clt_type",
+   "value" : "SPF"
+},{
+   "name" : "roof_clt_ply",
+   "value" : "3"
+},{
+   "name" : "roof_clt_thickness",
+   "value" : 0.17150000000000001
+},{
+   "name" : "replace_external_walls",
+   "value" : false
+},{
+   "name" : "facade_layer",
+   "value" : "None"
+},{
+   "name" : "outer_insulation",
+   "value" : "Polyiso"
+},{
+   "name" : "clt_layer",
+   "value" : "SPF"
+},{
+   "name" : "inner_insulation",
+   "value" : "None"
+},{
+   "name" : "inner_wall",
+   "value" : "None"
+},{
+   "name" : "exterior_insulation_r_value",
+   "value" : 5.2800000000000002
+},{
+   "name" : "interior_insulation_r_value",
+   "value" : 0.0
+},{
+   "name" : "roof_insulation_r_value",
+   "value" : 5.2800000000000002
+},{
+   "name" : "wall_clt_ply",
+   "value" : "3"
+},{
+   "name" : "wall_clt_layer_thickness",
+   "value" : 0.1016
+},{
+   "name" : "duplicate_all_sets",
+   "value" : true
+}
+]
+***Files Generated**
+
+
+[openstudio.WorkflowStepResult] <0> WorkflowStepResult value called with undefined stepResult, returning 'Success'
+FRunning test_update_all_construction_sets
+Setting inner_floor_clt_type to SPF was successful
+Setting inner_floor_clt_thickness to 0.1016 was successful
+Setting roof_clt_type to DF was successful
+Setting roof_clt_thickness to 0.1715 was successful
+Setting replace_external_walls to false was successful
+Setting duplicate_all_sets to true was successful
+[openstudio.measure.OSRunner] <1> Cannot find current Workflow Step
+**MEASURE APPLICABILITY**
+[openstudio.WorkflowStepResult] <0> WorkflowStepResult value called with undefined stepResult, returning 'Success'
+0 = Success
+**INITIAL CONDITION**
+The model started with 0 materials, 4 constructions, and 2 construction sets. The default construction set was 'Default Construction Set 1'.
+**FINAL CONDITION**
+The model ended with 4 materials, 7 constructions, and 4 construction sets. The default construction set is now 'Default Construction Set 1 with CLT'. Created new CLT constructions and assigned them to new construction sets.
+**INFO MESSAGES**
+Validating arguments...
+All argument values are valid.
+Creating material: SPF
+Creating material: DF
+Creating material: Polyiso
+Duplicating existing construction sets to leave the original in place for comparison.
+Creating material: Lightweight Concrete
+Creating or Modifying Default Construction Set 1 with CLT
+No defaultInteriorSurfaceConstructions found for 'Default Construction Set 1 with CLT' floors and ceilings, created new default constructions.
+No defaultExteriorSurfaceConstructions found for 'Default Construction Set 1 with CLT' roof, created new default constructions.
+Updated Default Building Construction Set to use Default Construction Set 1 with CLT
+Creating or Modifying Default Construction Set 2 with CLT
+defaultInteriorSurfaceConstructions for 'Default Construction Set 2 with CLT' floors and ceilings updated with CLT constructions.
+defaultExteriorSurfaceConstructions for 'Default Construction Set 2 with CLT' roof updated with CLT constructions.
+Updated Space 1 Space to use Default Construction Set 2 with CLT
+**WARNING MESSAGES**
+**ERROR MESSAGES**
+***Machine-Readable Attributes**
+[
+{
+   "name" : "inner_floor_clt_type",
+   "value" : "SPF"
+},{
+   "name" : "inner_floor_clt_ply",
+   "value" : "3"
+},{
+   "name" : "inner_floor_clt_thickness",
+   "value" : 0.1016
+},{
+   "name" : "roof_clt_type",
+   "value" : "DF"
+},{
+   "name" : "roof_clt_ply",
+   "value" : "3"
+},{
+   "name" : "roof_clt_thickness",
+   "value" : 0.17150000000000001
+},{
+   "name" : "replace_external_walls",
+   "value" : false
+},{
+   "name" : "facade_layer",
+   "value" : "None"
+},{
+   "name" : "outer_insulation",
+   "value" : "Polyiso"
+},{
+   "name" : "clt_layer",
+   "value" : "SPF"
+},{
+   "name" : "inner_insulation",
+   "value" : "None"
+},{
+   "name" : "inner_wall",
+   "value" : "None"
+},{
+   "name" : "exterior_insulation_r_value",
+   "value" : 5.2800000000000002
+},{
+   "name" : "interior_insulation_r_value",
+   "value" : 0.0
+},{
+   "name" : "roof_insulation_r_value",
+   "value" : 5.2800000000000002
+},{
+   "name" : "wall_clt_ply",
+   "value" : "3"
+},{
+   "name" : "wall_clt_layer_thickness",
+   "value" : 0.1016
+},{
+   "name" : "duplicate_all_sets",
+   "value" : true
+}
+]
+***Files Generated**
+
+
+[openstudio.WorkflowStepResult] <0> WorkflowStepResult value called with undefined stepResult, returning 'Success'
+FRunning test_outer_wall_construction
+Setting inner_floor_clt_type to SPF was successful
+Setting inner_floor_clt_thickness to 0.1016 was successful
+Setting roof_clt_type to DF was successful
+Setting roof_clt_thickness to 0.1715 was successful
+Setting replace_external_walls to true was successful
+Setting facade_layer to Brick was successful
+Setting outer_insulation to Polyiso was successful
+Setting clt_layer to DF was successful
+Setting inner_insulation to Spray Foam was successful
+Setting inner_wall to Gypsum was successful
+Setting exterior_insulation_r_value to 5.28 was successful
+Setting interior_insulation_r_value to 0 was successful
+Setting roof_insulation_r_value to 5.28 was successful
+Setting wall_clt_layer_thickness to 0.1016 was successful
+Setting duplicate_all_sets to true was successful
+[openstudio.measure.OSRunner] <1> Cannot find current Workflow Step
+**MEASURE APPLICABILITY**
+[openstudio.WorkflowStepResult] <0> WorkflowStepResult value called with undefined stepResult, returning 'Success'
+0 = Success
+**INITIAL CONDITION**
+The model started with 0 materials, 4 constructions, and 2 construction sets. The default construction set was 'Default Construction Set 1'.
+**FINAL CONDITION**
+The model ended with 7 materials, 9 constructions, and 4 construction sets. The default construction set is now 'Default Construction Set 1 with CLT'. Created new CLT constructions and assigned them to new construction sets.
+**INFO MESSAGES**
+Validating arguments...
+All argument values are valid.
+Creating material: SPF
+Creating material: DF
+Creating material: Polyiso
+Creating material: Brick
+Creating material: Spray Foam
+Creating material: Gypsum
+Duplicating existing construction sets to leave the original in place for comparison.
+Creating material: Lightweight Concrete
+Creating or Modifying Default Construction Set 1 with CLT
+No defaultInteriorSurfaceConstructions found for 'Default Construction Set 1 with CLT' floors and ceilings, created new default constructions.
+No defaultExteriorSurfaceConstructions found for 'Default Construction Set 1 with CLT' roof, created new default constructions.
+defaultExteriorSurfaceConstructions for 'Default Construction Set 1 with CLT' exterior walls updated with CLT constructions.
+Updated Default Building Construction Set to use Default Construction Set 1 with CLT
+Creating or Modifying Default Construction Set 2 with CLT
+defaultInteriorSurfaceConstructions for 'Default Construction Set 2 with CLT' floors and ceilings updated with CLT constructions.
+defaultExteriorSurfaceConstructions for 'Default Construction Set 2 with CLT' roof updated with CLT constructions.
+defaultExteriorSurfaceConstructions for 'Default Construction Set 2 with CLT' exterior walls updated with CLT constructions.
+Updated Space 1 Space to use Default Construction Set 2 with CLT
+**WARNING MESSAGES**
+**ERROR MESSAGES**
+***Machine-Readable Attributes**
+[
+{
+   "name" : "inner_floor_clt_type",
+   "value" : "SPF"
+},{
+   "name" : "inner_floor_clt_ply",
+   "value" : "3"
+},{
+   "name" : "inner_floor_clt_thickness",
+   "value" : 0.1016
+},{
+   "name" : "roof_clt_type",
+   "value" : "DF"
+},{
+   "name" : "roof_clt_ply",
+   "value" : "3"
+},{
+   "name" : "roof_clt_thickness",
+   "value" : 0.17150000000000001
+},{
+   "name" : "replace_external_walls",
+   "value" : true
+},{
+   "name" : "facade_layer",
+   "value" : "Brick"
+},{
+   "name" : "outer_insulation",
+   "value" : "Polyiso"
+},{
+   "name" : "clt_layer",
+   "value" : "DF"
+},{
+   "name" : "inner_insulation",
+   "value" : "Spray Foam"
+},{
+   "name" : "inner_wall",
+   "value" : "Gypsum"
+},{
+   "name" : "exterior_insulation_r_value",
+   "value" : 5.2800000000000002
+},{
+   "name" : "interior_insulation_r_value",
+   "value" : 0.0
+},{
+   "name" : "roof_insulation_r_value",
+   "value" : 5.2800000000000002
+},{
+   "name" : "wall_clt_ply",
+   "value" : "3"
+},{
+   "name" : "wall_clt_layer_thickness",
+   "value" : 0.1016
+},{
+   "name" : "duplicate_all_sets",
+   "value" : true
+}
+]
+***Files Generated**
+
+
+[openstudio.WorkflowStepResult] <0> WorkflowStepResult value called with undefined stepResult, returning 'Success'
+.Running test_number_and_names_of_arguments
+F
+
+Finished in 0.045282s, 110.4182 runs/s, 883.3454 assertions/s.
+
+  1) Failure:
+CreateAndAssignCLTConstructionSet_Test#test_invalid_argument_values [create_and_assign_clt_construction_set_test.rb:127]:
+Expected: "Fail"
+  Actual: "Success"
+
+  2) Failure:
+CreateAndAssignCLTConstructionSet_Test#test_update_all_construction_sets [create_and_assign_clt_construction_set_test.rb:181]:
+Expected false to be truthy.
+
+  3) Failure:
+CreateAndAssignCLTConstructionSet_Test#test_number_and_names_of_arguments [create_and_assign_clt_construction_set_test.rb:87]:
+Expected: 15
+  Actual: 18
+
+5 runs, 40 assertions, 3 failures, 0 errors, 0 skips

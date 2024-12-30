@@ -1,0 +1,203 @@
+[openstudio.measure.OSRunner] <1> Cannot find current Workflow Step
+Run options: --seed 30457
+
+# Running:
+
+**MEASURE APPLICABILITY**
+[openstudio.WorkflowStepResult] <0> WorkflowStepResult value called with undefined stepResult, returning 'Success'
+0 = Success
+**INITIAL CONDITION**
+The model started with 34 materials, 25 constructions, and 7. The default construction set was '189.1-2009 - CZ5 - Office'.
+**FINAL CONDITION**
+The model ended with 40 materials, 41 constructions, and 14. The default construction set is now '189.1-2009 - CZ5 - Office with CLT'. Created new CLT constructions and assigned them to new construction sets.
+**INFO MESSAGES**
+Validating arguments...
+All argument values are valid.
+Duplicating existing construction sets to leave the original in place for comparison.
+Creating or Modifying 189.1-2009 - CZ6 - Office with CLT
+Creating material: CLT - SPF Floor
+Updating CLT - SPF Floor with custom thickness 0.11
+Creating material: CLT - SPF Roof
+Updating CLT - SPF Roof with custom thickness 0.11
+Creating material: CLT - SPF Wall
+Updating CLT - SPF Wall with custom thickness 0.11
+Added CLT layer CLT - SPF Wall to exterior wall construction
+Creating material: Outer Polyiso Insulation 5.28 R-value
+Calculated thickness 0.11 for material Outer Polyiso Insulation 5.28 R-value based on target R-value of 5.28
+Updating Outer Polyiso Insulation 5.28 R-value with custom thickness 0.11
+Added outer insulation layer Outer Polyiso Insulation 5.28 R-value to exterior wall construction
+Creating material: Roof Insulation 5.28 R-value
+Calculated thickness 0.11 for material Roof Insulation 5.28 R-value based on target R-value of 5.28
+Updating Roof Insulation 5.28 R-value with custom thickness 0.11
+Created roof construction Roof CLT and Insulation - R-6.32
+Created exterior wall construction Exterior Wall CLT and Insulation - R-6.32
+Creating material: Lightweight Concrete
+Created inner floor construction Inner Floor CLT and Concrete
+Using existing material: Lightweight Concrete
+Created inner ceiling construction Inner Ceiling Concrete and CLT
+Assigned inner floor and ceiling constructions to defaultInteriorSurfaceConstructions for '189.1-2009 - CZ6 - Office with CLT'
+Assigned roof construction to defaultExteriorSurfaceConstructions for '189.1-2009 - CZ6 - Office with CLT'
+Assigned exterior wall construction to defaultExteriorSurfaceConstructions for '189.1-2009 - CZ6 - Office with CLT'
+Creating or Modifying 189.1-2009 - CZ1 - Office with CLT
+Using existing material: CLT - SPF Floor
+Using existing material: CLT - SPF Roof
+Using existing material: CLT - SPF Wall
+Added CLT layer CLT - SPF Wall to exterior wall construction
+Using existing material: Outer Polyiso Insulation 5.28 R-value
+Added outer insulation layer Outer Polyiso Insulation 5.28 R-value to exterior wall construction
+Using existing material: Roof Insulation 5.28 R-value
+Created roof construction Roof CLT and Insulation - R-6.32 1
+Created exterior wall construction Exterior Wall CLT and Insulation - R-6.32 1
+Assigned inner floor and ceiling constructions to defaultInteriorSurfaceConstructions for '189.1-2009 - CZ1 - Office with CLT'
+Assigned roof construction to defaultExteriorSurfaceConstructions for '189.1-2009 - CZ1 - Office with CLT'
+Assigned exterior wall construction to defaultExteriorSurfaceConstructions for '189.1-2009 - CZ1 - Office with CLT'
+Creating or Modifying 189.1-2009 - CZ2 - Office with CLT
+Using existing material: CLT - SPF Floor
+Using existing material: CLT - SPF Roof
+Using existing material: CLT - SPF Wall
+Added CLT layer CLT - SPF Wall to exterior wall construction
+Using existing material: Outer Polyiso Insulation 5.28 R-value
+Added outer insulation layer Outer Polyiso Insulation 5.28 R-value to exterior wall construction
+Using existing material: Roof Insulation 5.28 R-value
+Created roof construction Roof CLT and Insulation - R-6.32 2
+Created exterior wall construction Exterior Wall CLT and Insulation - R-6.32 2
+Assigned inner floor and ceiling constructions to defaultInteriorSurfaceConstructions for '189.1-2009 - CZ2 - Office with CLT'
+Assigned roof construction to defaultExteriorSurfaceConstructions for '189.1-2009 - CZ2 - Office with CLT'
+Assigned exterior wall construction to defaultExteriorSurfaceConstructions for '189.1-2009 - CZ2 - Office with CLT'
+Creating or Modifying 189.1-2009 - CZ3 - Office with CLT
+Using existing material: CLT - SPF Floor
+Using existing material: CLT - SPF Roof
+Using existing material: CLT - SPF Wall
+Added CLT layer CLT - SPF Wall to exterior wall construction
+Using existing material: Outer Polyiso Insulation 5.28 R-value
+Added outer insulation layer Outer Polyiso Insulation 5.28 R-value to exterior wall construction
+Using existing material: Roof Insulation 5.28 R-value
+Created roof construction Roof CLT and Insulation - R-6.32 3
+Created exterior wall construction Exterior Wall CLT and Insulation - R-6.32 3
+Assigned inner floor and ceiling constructions to defaultInteriorSurfaceConstructions for '189.1-2009 - CZ3 - Office with CLT'
+Assigned roof construction to defaultExteriorSurfaceConstructions for '189.1-2009 - CZ3 - Office with CLT'
+Assigned exterior wall construction to defaultExteriorSurfaceConstructions for '189.1-2009 - CZ3 - Office with CLT'
+Creating or Modifying 189.1-2009 - CZ4 - Office with CLT
+Using existing material: CLT - SPF Floor
+Using existing material: CLT - SPF Roof
+Using existing material: CLT - SPF Wall
+Added CLT layer CLT - SPF Wall to exterior wall construction
+Using existing material: Outer Polyiso Insulation 5.28 R-value
+Added outer insulation layer Outer Polyiso Insulation 5.28 R-value to exterior wall construction
+Using existing material: Roof Insulation 5.28 R-value
+Created roof construction Roof CLT and Insulation - R-6.32 4
+Created exterior wall construction Exterior Wall CLT and Insulation - R-6.32 4
+Assigned inner floor and ceiling constructions to defaultInteriorSurfaceConstructions for '189.1-2009 - CZ4 - Office with CLT'
+Assigned roof construction to defaultExteriorSurfaceConstructions for '189.1-2009 - CZ4 - Office with CLT'
+Assigned exterior wall construction to defaultExteriorSurfaceConstructions for '189.1-2009 - CZ4 - Office with CLT'
+Creating or Modifying 189.1-2009 - CZ5 - Office with CLT
+Using existing material: CLT - SPF Floor
+Using existing material: CLT - SPF Roof
+Using existing material: CLT - SPF Wall
+Added CLT layer CLT - SPF Wall to exterior wall construction
+Using existing material: Outer Polyiso Insulation 5.28 R-value
+Added outer insulation layer Outer Polyiso Insulation 5.28 R-value to exterior wall construction
+Using existing material: Roof Insulation 5.28 R-value
+Created roof construction Roof CLT and Insulation - R-6.32 5
+Created exterior wall construction Exterior Wall CLT and Insulation - R-6.32 5
+Assigned inner floor and ceiling constructions to defaultInteriorSurfaceConstructions for '189.1-2009 - CZ5 - Office with CLT'
+Assigned roof construction to defaultExteriorSurfaceConstructions for '189.1-2009 - CZ5 - Office with CLT'
+Assigned exterior wall construction to defaultExteriorSurfaceConstructions for '189.1-2009 - CZ5 - Office with CLT'
+Updated Default Building Construction Set to use 189.1-2009 - CZ5 - Office with CLT
+Creating or Modifying 189.1-2009 - CZ7-8 - Office with CLT
+Using existing material: CLT - SPF Floor
+Using existing material: CLT - SPF Roof
+Using existing material: CLT - SPF Wall
+Added CLT layer CLT - SPF Wall to exterior wall construction
+Using existing material: Outer Polyiso Insulation 5.28 R-value
+Added outer insulation layer Outer Polyiso Insulation 5.28 R-value to exterior wall construction
+Using existing material: Roof Insulation 5.28 R-value
+Created roof construction Roof CLT and Insulation - R-6.32 6
+Created exterior wall construction Exterior Wall CLT and Insulation - R-6.32 6
+Assigned inner floor and ceiling constructions to defaultInteriorSurfaceConstructions for '189.1-2009 - CZ7-8 - Office with CLT'
+Assigned roof construction to defaultExteriorSurfaceConstructions for '189.1-2009 - CZ7-8 - Office with CLT'
+Assigned exterior wall construction to defaultExteriorSurfaceConstructions for '189.1-2009 - CZ7-8 - Office with CLT'
+**WARNING MESSAGES**
+**ERROR MESSAGES**
+***Machine-Readable Attributes**
+[
+{
+   "name" : "exclude_construction_sets",
+   "value" : ""
+},{
+   "name" : "duplicate_all_sets",
+   "value" : true
+},{
+   "name" : "use_custom_inner_floor_thickness",
+   "value" : false
+},{
+   "name" : "use_custom_roof_thickness",
+   "value" : false
+},{
+   "name" : "replace_external_walls",
+   "value" : true
+},{
+   "name" : "use_custom_wall_thickness",
+   "value" : false
+},{
+   "name" : "infer_insulation_levels",
+   "value" : false
+},{
+   "name" : "inner_floor_clt_type",
+   "value" : "SPF"
+},{
+   "name" : "inner_floor_clt_ply",
+   "value" : "3"
+},{
+   "name" : "inner_floor_clt_thickness",
+   "value" : 0.1016
+},{
+   "name" : "roof_clt_type",
+   "value" : "SPF"
+},{
+   "name" : "roof_clt_ply",
+   "value" : "3"
+},{
+   "name" : "roof_clt_thickness",
+   "value" : 0.17150000000000001
+},{
+   "name" : "roof_insulation_r_value",
+   "value" : 5.2800000000000002
+},{
+   "name" : "facade_layer",
+   "value" : "None"
+},{
+   "name" : "outer_insulation",
+   "value" : "Polyiso"
+},{
+   "name" : "exterior_insulation_r_value",
+   "value" : 5.2800000000000002
+},{
+   "name" : "clt_layer",
+   "value" : "SPF"
+},{
+   "name" : "wall_clt_ply",
+   "value" : "3"
+},{
+   "name" : "wall_clt_layer_thickness",
+   "value" : 0.1016
+},{
+   "name" : "inner_insulation",
+   "value" : "None"
+},{
+   "name" : "interior_insulation_r_value",
+   "value" : 0.0
+},{
+   "name" : "inner_wall",
+   "value" : "None"
+}
+]
+***Files Generated**
+
+
+[openstudio.WorkflowStepResult] <0> WorkflowStepResult value called with undefined stepResult, returning 'Success'
+.
+
+Finished in 1.621377s, 0.6168 runs/s, 5.5508 assertions/s.
+
+1 runs, 9 assertions, 0 failures, 0 errors, 0 skips
