@@ -1,0 +1,7 @@
+{
+  "file_dir": ".",
+  "file_name": "hourly_values.csv",
+  "data_columns": 1,
+  "rows_to_skip": 0,
+  "unit_choice": "kW"
+}

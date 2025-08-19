@@ -1,0 +1,396 @@
+<?xml version="1.0"?>
+<measure>
+  <schema_version>3.1</schema_version>
+  <name>add_empd_material_properties_w_pre_defined</name>
+  <uid>82ecc263-c3d4-4907-b745-e23df6ed781b</uid>
+  <version_id>b8b98c5a-be97-4934-a240-86d298cea99d</version_id>
+  <version_modified>2025-08-19T21:53:13Z</version_modified>
+  <xml_checksum>3DF20A90</xml_checksum>
+  <class_name>AddEMPDMaterialPropertiesWPreDefined</class_name>
+  <display_name>Add EMPD Material Properties PreDefined</display_name>
+  <description>Adds effective moisture penetration depth (EMPD) Heat Balance Model properties for a selected material in the model.</description>
+  <modeler_description>Adds the properties for the 'MoisturePenetrationDepthConductionTransferFunction' or effective moisture penetration depth (EMPD) Heat Balance Model with inputs for penetration depths. Using the values a=0, b=1, c=0, and d=1 results in a non-absorbant material and is useful for adding properties to a material in a zone so that you can use the algorithm, but for a zone/material that doesn't participate in the moisture balance.
+Leaving 'Change heat balance algorithm?' blank will use the current OpenStudio heat balance algorithm setting.
+At least 1 interior material in every zone needs to have moisture penetration depth properties set to use the EMPD heat balance algorithm.
+Moisture properties are drawn from a modified idf of the EnergyPlus MoistureProperties.idf dataset file. The modified file has moisture properties for SPF and DF cross-laminated timber based on the research study by Kordziel et al. 'Hygrothermal characterization and modeling of cross-laminated timber in the building envelope'.
+</modeler_description>
+  <arguments>
+    <argument>
+      <name>selected_material</name>
+      <display_name>Select Material</display_name>
+      <type>Choice</type>
+      <required>true</required>
+      <model_dependent>false</model_dependent>
+    </argument>
+    <argument>
+      <name>opt_custom_material</name>
+      <display_name>Optional Custom Material Name</display_name>
+      <description>If you have added a custom material in a measure workflow, you can enter the name here. Leave empty to use the selected material.</description>
+      <type>String</type>
+      <required>false</required>
+      <model_dependent>false</model_dependent>
+    </argument>
+    <argument>
+      <name>moisture_material_choice</name>
+      <display_name>Select the closest material here to the one in your model</display_name>
+      <type>Choice</type>
+      <required>true</required>
+      <model_dependent>false</model_dependent>
+      <default_value>Brick</default_value>
+      <choices>
+        <choice>
+          <value>Brick</value>
+          <display_name>Brick</display_name>
+        </choice>
+        <choice>
+          <value>CLT - DF</value>
+          <display_name>CLT - DF</display_name>
+        </choice>
+        <choice>
+          <value>CLT - SPF</value>
+          <display_name>CLT - SPF</display_name>
+        </choice>
+        <choice>
+          <value>Carpet</value>
+          <display_name>Carpet</display_name>
+        </choice>
+        <choice>
+          <value>Concrete</value>
+          <display_name>Concrete</display_name>
+        </choice>
+        <choice>
+          <value>Gypsum</value>
+          <display_name>Gypsum</display_name>
+        </choice>
+        <choice>
+          <value>Moisture Barrier</value>
+          <display_name>Moisture Barrier</display_name>
+        </choice>
+        <choice>
+          <value>PaintedGypsum</value>
+          <display_name>PaintedGypsum</display_name>
+        </choice>
+        <choice>
+          <value>Plywood</value>
+          <display_name>Plywood</display_name>
+        </choice>
+        <choice>
+          <value>Soil</value>
+          <display_name>Soil</display_name>
+        </choice>
+        <choice>
+          <value>Wood</value>
+          <display_name>Wood</display_name>
+        </choice>
+      </choices>
+    </argument>
+    <argument>
+      <name>cust_waterDiffFact</name>
+      <display_name>Override PreDefined Material's Water Vapor Diffusion Resistance Factor?</display_name>
+      <type>Boolean</type>
+      <required>true</required>
+      <model_dependent>false</model_dependent>
+      <default_value>false</default_value>
+      <choices>
+        <choice>
+          <value>true</value>
+          <display_name>true</display_name>
+        </choice>
+        <choice>
+          <value>false</value>
+          <display_name>false</display_name>
+        </choice>
+      </choices>
+    </argument>
+    <argument>
+      <name>waterDiffFact</name>
+      <display_name>Set value for Water Vapor Diffusion Resistance Factor</display_name>
+      <type>Double</type>
+      <required>true</required>
+      <model_dependent>false</model_dependent>
+      <default_value>0</default_value>
+    </argument>
+    <argument>
+      <name>cust_coeffs</name>
+      <display_name>Override PreDefined Material's Moisture Equation Coefficients (a-d)?</display_name>
+      <type>Boolean</type>
+      <required>true</required>
+      <model_dependent>false</model_dependent>
+      <default_value>false</default_value>
+      <choices>
+        <choice>
+          <value>true</value>
+          <display_name>true</display_name>
+        </choice>
+        <choice>
+          <value>false</value>
+          <display_name>false</display_name>
+        </choice>
+      </choices>
+    </argument>
+    <argument>
+      <name>coefA</name>
+      <display_name>Set value for Moisture Equation Coefficient A</display_name>
+      <type>Double</type>
+      <required>true</required>
+      <model_dependent>false</model_dependent>
+      <default_value>0</default_value>
+    </argument>
+    <argument>
+      <name>coefB</name>
+      <display_name>Set value for Moisture Equation Coefficient B</display_name>
+      <type>Double</type>
+      <required>true</required>
+      <model_dependent>false</model_dependent>
+      <default_value>1</default_value>
+    </argument>
+    <argument>
+      <name>coefC</name>
+      <display_name>Set value for Moisture Equation Coefficient C</display_name>
+      <type>Double</type>
+      <required>true</required>
+      <model_dependent>false</model_dependent>
+      <default_value>0</default_value>
+    </argument>
+    <argument>
+      <name>coefD</name>
+      <display_name>Set value for Moisture Equation Coefficient D</display_name>
+      <type>Double</type>
+      <required>true</required>
+      <model_dependent>false</model_dependent>
+      <default_value>1</default_value>
+    </argument>
+    <argument>
+      <name>cust_surfacePenetration</name>
+      <display_name>Override PreDefined Material's Surface Layer Penetration Depth?</display_name>
+      <type>Boolean</type>
+      <required>true</required>
+      <model_dependent>false</model_dependent>
+      <default_value>false</default_value>
+      <choices>
+        <choice>
+          <value>true</value>
+          <display_name>true</display_name>
+        </choice>
+        <choice>
+          <value>false</value>
+          <display_name>false</display_name>
+        </choice>
+      </choices>
+    </argument>
+    <argument>
+      <name>surfacePenetration</name>
+      <display_name>Set value for Surface Layer Penetration Depth</display_name>
+      <type>String</type>
+      <required>true</required>
+      <model_dependent>false</model_dependent>
+      <default_value>Auto</default_value>
+    </argument>
+    <argument>
+      <name>cust_deepPenetration</name>
+      <display_name>Override PreDefined Material's Deep Layer Penetration Depth?</display_name>
+      <type>Boolean</type>
+      <required>true</required>
+      <model_dependent>false</model_dependent>
+      <default_value>false</default_value>
+      <choices>
+        <choice>
+          <value>true</value>
+          <display_name>true</display_name>
+        </choice>
+        <choice>
+          <value>false</value>
+          <display_name>false</display_name>
+        </choice>
+      </choices>
+    </argument>
+    <argument>
+      <name>deepPenetration</name>
+      <display_name>Set value for Deep Layer Penetration Depth</display_name>
+      <type>String</type>
+      <required>false</required>
+      <model_dependent>false</model_dependent>
+      <default_value>Auto</default_value>
+    </argument>
+    <argument>
+      <name>cust_coating</name>
+      <display_name>Override PreDefined Material's Coating Layer Thickness?</display_name>
+      <type>Boolean</type>
+      <required>true</required>
+      <model_dependent>false</model_dependent>
+      <default_value>false</default_value>
+      <choices>
+        <choice>
+          <value>true</value>
+          <display_name>true</display_name>
+        </choice>
+        <choice>
+          <value>false</value>
+          <display_name>false</display_name>
+        </choice>
+      </choices>
+    </argument>
+    <argument>
+      <name>coating</name>
+      <display_name>Set value for Coating Layer Thickness</display_name>
+      <type>Double</type>
+      <required>true</required>
+      <model_dependent>false</model_dependent>
+      <default_value>0</default_value>
+    </argument>
+    <argument>
+      <name>cust_coatingRes</name>
+      <display_name>Override PreDefined Material's Coating Layer Resistance Factor</display_name>
+      <type>Boolean</type>
+      <required>true</required>
+      <model_dependent>false</model_dependent>
+      <default_value>false</default_value>
+      <choices>
+        <choice>
+          <value>true</value>
+          <display_name>true</display_name>
+        </choice>
+        <choice>
+          <value>false</value>
+          <display_name>false</display_name>
+        </choice>
+      </choices>
+    </argument>
+    <argument>
+      <name>coatingRes</name>
+      <display_name>Set value for Coating Layer Resistance Factor</display_name>
+      <type>Double</type>
+      <required>true</required>
+      <model_dependent>false</model_dependent>
+      <default_value>0</default_value>
+    </argument>
+    <argument>
+      <name>algorithm</name>
+      <display_name>Change heat balance algorithm?</display_name>
+      <type>Choice</type>
+      <required>false</required>
+      <model_dependent>false</model_dependent>
+      <default_value></default_value>
+      <choices>
+        <choice>
+          <value></value>
+          <display_name></display_name>
+        </choice>
+        <choice>
+          <value>MoisturePenetrationDepthConductionTransferFunction</value>
+          <display_name>MoisturePenetrationDepthConductionTransferFunction</display_name>
+        </choice>
+        <choice>
+          <value>ConductionTransferFunction</value>
+          <display_name>ConductionTransferFunction</display_name>
+        </choice>
+      </choices>
+    </argument>
+  </arguments>
+  <outputs />
+  <provenances />
+  <tags>
+    <tag>Envelope.Opaque</tag>
+  </tags>
+  <attributes>
+    <attribute>
+      <name>Intended Software Tool</name>
+      <value>Apply Measure Now</value>
+      <datatype>string</datatype>
+    </attribute>
+    <attribute>
+      <name>Intended Software Tool</name>
+      <value>OpenStudio Application</value>
+      <datatype>string</datatype>
+    </attribute>
+    <attribute>
+      <name>Intended Software Tool</name>
+      <value>Parametric Analysis Tool</value>
+      <datatype>string</datatype>
+    </attribute>
+    <attribute>
+      <name>Intended Use Case</name>
+      <value>Model Articulation</value>
+      <datatype>string</datatype>
+    </attribute>
+    <attribute>
+      <name>Measure Type</name>
+      <value>ModelMeasure</value>
+      <datatype>string</datatype>
+    </attribute>
+    <attribute>
+      <name>Measure Language</name>
+      <value>Ruby</value>
+      <datatype>string</datatype>
+    </attribute>
+    <attribute>
+      <name>Intended Software Tool</name>
+      <value>Apply Measure Now</value>
+      <datatype>string</datatype>
+    </attribute>
+    <attribute>
+      <name>Intended Software Tool</name>
+      <value>OpenStudio Application</value>
+      <datatype>string</datatype>
+    </attribute>
+    <attribute>
+      <name>Intended Software Tool</name>
+      <value>Parametric Analysis Tool</value>
+      <datatype>string</datatype>
+    </attribute>
+    <attribute>
+      <name>Intended Use Case</name>
+      <value>Model Articulation</value>
+      <datatype>string</datatype>
+    </attribute>
+  </attributes>
+  <files>
+    <file>
+      <filename>LICENSE.md</filename>
+      <filetype>md</filetype>
+      <usage_type>license</usage_type>
+      <checksum>CD7F5672</checksum>
+    </file>
+    <file>
+      <filename>README.md</filename>
+      <filetype>md</filetype>
+      <usage_type>readme</usage_type>
+      <checksum>982E16BB</checksum>
+    </file>
+    <file>
+      <filename>README.md.erb</filename>
+      <filetype>erb</filetype>
+      <usage_type>readmeerb</usage_type>
+      <checksum>703C9964</checksum>
+    </file>
+    <file>
+      <version>
+        <software_program>OpenStudio</software_program>
+        <identifier>3.0.0</identifier>
+        <min_compatible>3.0.0</min_compatible>
+      </version>
+      <filename>measure.rb</filename>
+      <filetype>rb</filetype>
+      <usage_type>script</usage_type>
+      <checksum>F53F3A37</checksum>
+    </file>
+    <file>
+      <filename>EMPDMoistureMaterials_wCLT.idf</filename>
+      <filetype>idf</filetype>
+      <usage_type>resource</usage_type>
+      <checksum>F58021A4</checksum>
+    </file>
+    <file>
+      <filename>add_empd_material_properties_w_pre_defined_test.rb</filename>
+      <filetype>rb</filetype>
+      <usage_type>test</usage_type>
+      <checksum>1AA9F8D1</checksum>
+    </file>
+    <file>
+      <filename>example_model.osm</filename>
+      <filetype>osm</filetype>
+      <usage_type>test</usage_type>
+      <checksum>53D14E69</checksum>
+    </file>
+  </files>
+</measure>

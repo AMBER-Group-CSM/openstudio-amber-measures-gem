@@ -1,0 +1,308 @@
+<?xml version="1.0"?>
+<measure>
+  <schema_version>3.1</schema_version>
+  <name>add_and_apply_load_and_schedule_from_file</name>
+  <uid>f97be49a-a272-41e9-9d92-c2b2a082d556</uid>
+  <version_id>cc83d8fd-4ace-4a81-a724-9e7e3c51c6ea</version_id>
+  <version_modified>2025-08-19T22:00:21Z</version_modified>
+  <xml_checksum>17864064</xml_checksum>
+  <class_name>AddAndApplyLoadAndScheduleFromFile</class_name>
+  <display_name>Add and Apply Load and Schedule from File</display_name>
+  <description>This measure imports electric or lighting load data from a CSV file and applies it to a selected load in the OpenStudio model as a ScheduleInterval. The measure offers options to normalize the data by floor area, invert the data if it represents energy consumption as negative values, and replace the existing power or power intensity with the maximum value from the CSV data.</description>
+  <modeler_description>This measure enhances the flexibility of energy modeling by allowing users to apply real-world load data to their OpenStudio models. It reads a specified column of electric or lighting load data from a CSV file and processes it to create a ScheduleInterval for a selected load object (either ElectricEquipment or Lights). Key features include the ability to normalize the data by the maximum value in the CSV column, adjust for floor area (either the whole building or a specific level), and replace existing design-level values with the maximum value from the CSV.
+    Additionally, the measure provides an option to invert the load data, which is particularly useful if the data is reported as negative values when the load is consuming energy, such as in some sub-metered data sets. The measure handles various data intervals, such as hourly, 15-minute, or 1-minute data, and includes comprehensive error handling and logging to ensure the user is informed of any issues or actions taken during the measure's execution.
+    The measure also supports the reuse of file paths and names across multiple runs by storing user-defined paths and filenames in a JSON file, making it easier to apply consistent settings across different projects or scenarios.</modeler_description>
+  <arguments>
+    <argument>
+      <name>load_object</name>
+      <display_name>Select the Load Object:</display_name>
+      <description>Select the electric or lighting load object from the model to which the schedule will be applied.</description>
+      <type>Choice</type>
+      <required>true</required>
+      <model_dependent>false</model_dependent>
+    </argument>
+    <argument>
+      <name>replace_load_value</name>
+      <display_name>Replace existing design/watts per floor area</display_name>
+      <description>If checked, this will replace the existing design value or watts per floor area with the maximum value from the CSV data.</description>
+      <type>Boolean</type>
+      <required>true</required>
+      <model_dependent>false</model_dependent>
+      <default_value>true</default_value>
+      <choices>
+        <choice>
+          <value>true</value>
+          <display_name>true</display_name>
+        </choice>
+        <choice>
+          <value>false</value>
+          <display_name>false</display_name>
+        </choice>
+      </choices>
+    </argument>
+    <argument>
+      <name>replace_schedules</name>
+      <display_name>Override schedules associated with the load</display_name>
+      <description>If checked, this will override the existing schedule associated with the selected load with the new schedule created from the CSV data.</description>
+      <type>Boolean</type>
+      <required>true</required>
+      <model_dependent>false</model_dependent>
+      <default_value>true</default_value>
+      <choices>
+        <choice>
+          <value>true</value>
+          <display_name>true</display_name>
+        </choice>
+        <choice>
+          <value>false</value>
+          <display_name>false</display_name>
+        </choice>
+      </choices>
+    </argument>
+    <argument>
+      <name>invert_load_data</name>
+      <display_name>Invert Load Data</display_name>
+      <description>Check if your sub-metered data is reported as a negative value when the load is consuming energy.</description>
+      <type>Boolean</type>
+      <required>true</required>
+      <model_dependent>false</model_dependent>
+      <default_value>false</default_value>
+      <choices>
+        <choice>
+          <value>true</value>
+          <display_name>true</display_name>
+        </choice>
+        <choice>
+          <value>false</value>
+          <display_name>false</display_name>
+        </choice>
+      </choices>
+    </argument>
+    <argument>
+      <name>floor_area_selection</name>
+      <display_name>Normalize by Floor Area</display_name>
+      <description>Choose whether to normalize the load data by the floor area of the whole building or a specific level.</description>
+      <type>Choice</type>
+      <required>true</required>
+      <model_dependent>false</model_dependent>
+      <default_value>None</default_value>
+      <choices>
+        <choice>
+          <value>None</value>
+          <display_name>None</display_name>
+        </choice>
+        <choice>
+          <value>Whole Building</value>
+          <display_name>Whole Building</display_name>
+        </choice>
+        <choice>
+          <value>For a Level</value>
+          <display_name>For a Level</display_name>
+        </choice>
+      </choices>
+    </argument>
+    <argument>
+      <name>level_selection</name>
+      <display_name>Select the Level:</display_name>
+      <description>Select the specific level of the building if you have chosen to normalize the load data by floor area for a particular level.</description>
+      <type>Choice</type>
+      <required>false</required>
+      <model_dependent>false</model_dependent>
+    </argument>
+    <argument>
+      <name>file_dir</name>
+      <display_name>Enter the path to the directory where the data file is stored</display_name>
+      <description>Specify the directory path where the CSV data file is located. Leave this blank in subsequent runtime measures to reuse the same path. Example: 'C:\Projects\data'</description>
+      <type>String</type>
+      <required>false</required>
+      <model_dependent>false</model_dependent>
+      <default_value></default_value>
+    </argument>
+    <argument>
+      <name>file_name</name>
+      <display_name>Enter the name of the CSV file</display_name>
+      <description>Specify the name of the CSV file containing the load data. Leave this blank in subsequent runtime measures to reuse the same file name. Example: 'values.csv'</description>
+      <type>String</type>
+      <required>false</required>
+      <model_dependent>false</model_dependent>
+      <default_value></default_value>
+    </argument>
+    <argument>
+      <name>data_columns</name>
+      <display_name>Data Column in the CSV File</display_name>
+      <description>Specify the column number in the CSV file that contains the load data to be applied.</description>
+      <type>Integer</type>
+      <required>true</required>
+      <model_dependent>false</model_dependent>
+      <default_value>1</default_value>
+    </argument>
+    <argument>
+      <name>rows_to_skip</name>
+      <display_name>Rows to Skip in the CSV File</display_name>
+      <description>Specify the number of rows to skip at the beginning of the CSV file. This is useful if the file has a header row or other non-data rows.</description>
+      <type>Integer</type>
+      <required>true</required>
+      <model_dependent>false</model_dependent>
+      <default_value>0</default_value>
+    </argument>
+    <argument>
+      <name>unit_choice</name>
+      <display_name>Units of the data in the CSV column</display_name>
+      <description>Specify the units of the load data in the CSV file. This can be left blank, or you can select from Watts (W), Kilowatts (kW), or BTU/hr.</description>
+      <type>Choice</type>
+      <required>true</required>
+      <model_dependent>false</model_dependent>
+      <default_value></default_value>
+      <choices>
+        <choice>
+          <value></value>
+          <display_name></display_name>
+        </choice>
+        <choice>
+          <value>W</value>
+          <display_name>W</display_name>
+        </choice>
+        <choice>
+          <value>kW</value>
+          <display_name>kW</display_name>
+        </choice>
+        <choice>
+          <value>BTU/hr</value>
+          <display_name>BTU/hr</display_name>
+        </choice>
+      </choices>
+    </argument>
+  </arguments>
+  <outputs />
+  <provenances />
+  <tags>
+    <tag>Whole Building.Whole Building Schedules</tag>
+  </tags>
+  <attributes>
+    <attribute>
+      <name>Measure Type</name>
+      <value>ModelMeasure</value>
+      <datatype>string</datatype>
+    </attribute>
+    <attribute>
+      <name>Measure Language</name>
+      <value>Ruby</value>
+      <datatype>string</datatype>
+    </attribute>
+    <attribute>
+      <name>Intended Software Tool</name>
+      <value>Apply Measure Now</value>
+      <datatype>string</datatype>
+    </attribute>
+    <attribute>
+      <name>Intended Software Tool</name>
+      <value>OpenStudio Application</value>
+      <datatype>string</datatype>
+    </attribute>
+    <attribute>
+      <name>Intended Software Tool</name>
+      <value>Parametric Analysis Tool</value>
+      <datatype>string</datatype>
+    </attribute>
+    <attribute>
+      <name>Intended Use Case</name>
+      <value>Model Articulation</value>
+      <datatype>string</datatype>
+    </attribute>
+    <attribute>
+      <name>Intended Use Case</name>
+      <value>Calibration</value>
+      <datatype>string</datatype>
+    </attribute>
+    <attribute>
+      <name>Intended Use Case</name>
+      <value>Sensitivity Analysis</value>
+      <datatype>string</datatype>
+    </attribute>
+  </attributes>
+  <files>
+    <file>
+      <filename>LICENSE.md</filename>
+      <filetype>md</filetype>
+      <usage_type>license</usage_type>
+      <checksum>CD7F5672</checksum>
+    </file>
+    <file>
+      <filename>README.md</filename>
+      <filetype>md</filetype>
+      <usage_type>readme</usage_type>
+      <checksum>D11C2D7C</checksum>
+    </file>
+    <file>
+      <filename>README.md.erb</filename>
+      <filetype>erb</filetype>
+      <usage_type>readmeerb</usage_type>
+      <checksum>F1C26127</checksum>
+    </file>
+    <file>
+      <filename>.gitkeep</filename>
+      <filetype>gitkeep</filetype>
+      <usage_type>doc</usage_type>
+      <checksum>00000000</checksum>
+    </file>
+    <file>
+      <version>
+        <software_program>OpenStudio</software_program>
+        <identifier>3.7.0</identifier>
+        <min_compatible>3.7.0</min_compatible>
+      </version>
+      <filename>measure.rb</filename>
+      <filetype>rb</filetype>
+      <usage_type>script</usage_type>
+      <checksum>CD034FB0</checksum>
+    </file>
+    <file>
+      <filename>15min_values.csv</filename>
+      <filetype>csv</filetype>
+      <usage_type>test</usage_type>
+      <checksum>DC70F839</checksum>
+    </file>
+    <file>
+      <filename>add_and_apply_load_and_schedule_from_file_test.rb</filename>
+      <filetype>rb</filetype>
+      <usage_type>test</usage_type>
+      <checksum>79E35C13</checksum>
+    </file>
+    <file>
+      <filename>bad_hourly_values.csv</filename>
+      <filetype>csv</filetype>
+      <usage_type>test</usage_type>
+      <checksum>6E67D291</checksum>
+    </file>
+    <file>
+      <filename>example_model.osm</filename>
+      <filetype>osm</filetype>
+      <usage_type>test</usage_type>
+      <checksum>53D14E69</checksum>
+    </file>
+    <file>
+      <filename>hourly_values.csv</filename>
+      <filetype>csv</filetype>
+      <usage_type>test</usage_type>
+      <checksum>2662425D</checksum>
+    </file>
+    <file>
+      <filename>inverted_hourly_values.csv</filename>
+      <filetype>csv</filetype>
+      <usage_type>test</usage_type>
+      <checksum>C9B0BC30</checksum>
+    </file>
+    <file>
+      <filename>leap_year_hourly_values.csv</filename>
+      <filetype>csv</filetype>
+      <usage_type>test</usage_type>
+      <checksum>EE155AAE</checksum>
+    </file>
+    <file>
+      <filename>testoutput.txt</filename>
+      <filetype>txt</filetype>
+      <usage_type>test</usage_type>
+      <checksum>76D244D1</checksum>
+    </file>
+  </files>
+</measure>

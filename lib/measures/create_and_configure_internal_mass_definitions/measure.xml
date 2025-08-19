@@ -1,0 +1,291 @@
+<?xml version="1.0"?>
+<measure>
+  <schema_version>3.1</schema_version>
+  <name>create_and_configure_internal_mass_definitions</name>
+  <uid>a191fa40-5014-4021-b6b4-09badd1bb5e8</uid>
+  <version_id>9b1a7ca7-9ea0-45d1-b6f6-250303761158</version_id>
+  <version_modified>2025-08-11T16:40:18Z</version_modified>
+  <xml_checksum>DE7E6A24</xml_checksum>
+  <class_name>CreateAndConfigureInternalMassDefinitions</class_name>
+  <display_name>Create and Configure Internal Mass Definitions</display_name>
+  <description>Create a new internal mass definition using a layered construction and assign to matching spaces.</description>
+  <modeler_description>Build an opaque material from user inputs, wrap it in a layered construction, create an InternalMassDefinition, set sizing method, then instantiate and assign InternalMass objects to spaces matching a name pattern.</modeler_description>
+  <arguments>
+    <argument>
+      <name>definition_name</name>
+      <display_name>Internal Mass Definition Name</display_name>
+      <type>String</type>
+      <required>true</required>
+      <model_dependent>false</model_dependent>
+      <default_value>Internal Mass Def</default_value>
+    </argument>
+    <argument>
+      <name>material_name</name>
+      <display_name>Opaque Material Name</display_name>
+      <type>String</type>
+      <required>true</required>
+      <model_dependent>false</model_dependent>
+      <default_value>IM Material</default_value>
+    </argument>
+    <argument>
+      <name>roughness</name>
+      <display_name>Material Roughness</display_name>
+      <type>Choice</type>
+      <required>true</required>
+      <model_dependent>false</model_dependent>
+      <default_value>MediumRough</default_value>
+      <choices>
+        <choice>
+          <value>VeryRough</value>
+          <display_name>VeryRough</display_name>
+        </choice>
+        <choice>
+          <value>Rough</value>
+          <display_name>Rough</display_name>
+        </choice>
+        <choice>
+          <value>MediumRough</value>
+          <display_name>MediumRough</display_name>
+        </choice>
+        <choice>
+          <value>MediumSmooth</value>
+          <display_name>MediumSmooth</display_name>
+        </choice>
+        <choice>
+          <value>Smooth</value>
+          <display_name>Smooth</display_name>
+        </choice>
+        <choice>
+          <value>VerySmooth</value>
+          <display_name>VerySmooth</display_name>
+        </choice>
+      </choices>
+    </argument>
+    <argument>
+      <name>thickness</name>
+      <display_name>Layer Thickness (m)</display_name>
+      <type>Double</type>
+      <required>true</required>
+      <model_dependent>false</model_dependent>
+      <default_value>0.2</default_value>
+    </argument>
+    <argument>
+      <name>conductivity</name>
+      <display_name>Thermal Conductivity (W/m·K)</display_name>
+      <type>Double</type>
+      <required>true</required>
+      <model_dependent>false</model_dependent>
+      <default_value>0.15</default_value>
+    </argument>
+    <argument>
+      <name>density</name>
+      <display_name>Density (kg/m³)</display_name>
+      <type>Double</type>
+      <required>true</required>
+      <model_dependent>false</model_dependent>
+      <default_value>608</default_value>
+    </argument>
+    <argument>
+      <name>specific_heat</name>
+      <display_name>Specific Heat (J/kg·K)</display_name>
+      <type>Double</type>
+      <required>true</required>
+      <model_dependent>false</model_dependent>
+      <default_value>1630</default_value>
+    </argument>
+    <argument>
+      <name>surface_area</name>
+      <display_name>Surface Area (m²)</display_name>
+      <type>Double</type>
+      <required>false</required>
+      <model_dependent>false</model_dependent>
+      <default_value>0</default_value>
+    </argument>
+    <argument>
+      <name>surface_area_per_floor_area</name>
+      <display_name>Surface Area per Space Floor Area (m²/m²)</display_name>
+      <type>Double</type>
+      <required>false</required>
+      <model_dependent>false</model_dependent>
+      <default_value>2</default_value>
+    </argument>
+    <argument>
+      <name>surface_area_per_person</name>
+      <display_name>Surface Area per Person (m²/person)</display_name>
+      <type>Double</type>
+      <required>false</required>
+      <model_dependent>false</model_dependent>
+      <default_value>0</default_value>
+    </argument>
+    <argument>
+      <name>calculation_method</name>
+      <display_name>Sizing Calculation Method</display_name>
+      <type>Choice</type>
+      <required>true</required>
+      <model_dependent>false</model_dependent>
+      <default_value>Surface Area per Space Floor Area</default_value>
+      <choices>
+        <choice>
+          <value>Surface Area</value>
+          <display_name>Surface Area</display_name>
+        </choice>
+        <choice>
+          <value>Surface Area per Space Floor Area</value>
+          <display_name>Surface Area per Space Floor Area</display_name>
+        </choice>
+        <choice>
+          <value>Surface Area per Person</value>
+          <display_name>Surface Area per Person</display_name>
+        </choice>
+      </choices>
+    </argument>
+    <argument>
+      <name>multiplier</name>
+      <display_name>Internal Mass Multiplier</display_name>
+      <type>Double</type>
+      <required>true</required>
+      <model_dependent>false</model_dependent>
+      <default_value>1</default_value>
+    </argument>
+    <argument>
+      <name>space_name_pattern</name>
+      <display_name>Space Name Pattern</display_name>
+      <type>String</type>
+      <required>true</required>
+      <model_dependent>false</model_dependent>
+      <default_value>*</default_value>
+    </argument>
+    <argument>
+      <name>override_convection</name>
+      <display_name>Override Internal Mass Convection Coefficients</display_name>
+      <description>If true, the internal mass convection coefficients will be overridden with the a custom SurfacePropertyConvectionCoefficient object.</description>
+      <type>Boolean</type>
+      <required>false</required>
+      <model_dependent>false</model_dependent>
+      <default_value>false</default_value>
+      <choices>
+        <choice>
+          <value>true</value>
+          <display_name>true</display_name>
+        </choice>
+        <choice>
+          <value>false</value>
+          <display_name>false</display_name>
+        </choice>
+      </choices>
+    </argument>
+    <argument>
+      <name>nat_conv_multiplier</name>
+      <display_name>Natural Convection Coefficient Multiplier</display_name>
+      <description>Multiplier for the internal mass natural convection coefficient</description>
+      <type>Double</type>
+      <required>false</required>
+      <model_dependent>false</model_dependent>
+      <default_value>1</default_value>
+    </argument>
+    <argument>
+      <name>added_conv_scaler</name>
+      <display_name>Secondary Convection Coefficient Term Scaler for Room Mixing Effects</display_name>
+      <description>Scaler for the additional convection coefficient term to account for room mixing effects</description>
+      <type>Double</type>
+      <required>false</required>
+      <model_dependent>false</model_dependent>
+      <default_value>1</default_value>
+    </argument>
+    <argument>
+      <name>added_conv_exp</name>
+      <display_name>Exponential for Added Convection Coefficient Temperature Difference</display_name>
+      <description>Shapes the curve of the secondary convection coefficient term.</description>
+      <type>Double</type>
+      <required>false</required>
+      <model_dependent>false</model_dependent>
+      <default_value>0.333</default_value>
+    </argument>
+  </arguments>
+  <outputs />
+  <provenances />
+  <tags>
+    <tag>Envelope.Opaque</tag>
+  </tags>
+  <attributes>
+    <attribute>
+      <name>Measure Type</name>
+      <value>ModelMeasure</value>
+      <datatype>string</datatype>
+    </attribute>
+    <attribute>
+      <name>Measure Language</name>
+      <value>Ruby</value>
+      <datatype>string</datatype>
+    </attribute>
+    <attribute>
+      <name>Intended Software Tool</name>
+      <value>Apply Measure Now</value>
+      <datatype>string</datatype>
+    </attribute>
+    <attribute>
+      <name>Intended Software Tool</name>
+      <value>OpenStudio Application</value>
+      <datatype>string</datatype>
+    </attribute>
+    <attribute>
+      <name>Intended Software Tool</name>
+      <value>Parametric Analysis Tool</value>
+      <datatype>string</datatype>
+    </attribute>
+    <attribute>
+      <name>Intended Use Case</name>
+      <value>Model Articulation</value>
+      <datatype>string</datatype>
+    </attribute>
+  </attributes>
+  <files>
+    <file>
+      <filename>LICENSE.md</filename>
+      <filetype>md</filetype>
+      <usage_type>license</usage_type>
+      <checksum>CD7F5672</checksum>
+    </file>
+    <file>
+      <filename>README.md</filename>
+      <filetype>md</filetype>
+      <usage_type>readme</usage_type>
+      <checksum>EC3CE592</checksum>
+    </file>
+    <file>
+      <filename>README.md.erb</filename>
+      <filetype>erb</filetype>
+      <usage_type>readmeerb</usage_type>
+      <checksum>F1C26127</checksum>
+    </file>
+    <file>
+      <filename>.gitkeep</filename>
+      <filetype>gitkeep</filetype>
+      <usage_type>doc</usage_type>
+      <checksum>00000000</checksum>
+    </file>
+    <file>
+      <version>
+        <software_program>OpenStudio</software_program>
+        <identifier>3.9.0</identifier>
+        <min_compatible>3.9.0</min_compatible>
+      </version>
+      <filename>measure.rb</filename>
+      <filetype>rb</filetype>
+      <usage_type>script</usage_type>
+      <checksum>C6052EDE</checksum>
+    </file>
+    <file>
+      <filename>create_and_configure_internal_mass_definitions_test.rb</filename>
+      <filetype>rb</filetype>
+      <usage_type>test</usage_type>
+      <checksum>E128328C</checksum>
+    </file>
+    <file>
+      <filename>example_model.osm</filename>
+      <filetype>osm</filetype>
+      <usage_type>test</usage_type>
+      <checksum>D6BD40D0</checksum>
+    </file>
+  </files>
+</measure>

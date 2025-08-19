@@ -1,0 +1,148 @@
+<?xml version="1.0"?>
+<measure>
+  <schema_version>3.1</schema_version>
+  <name>create_and_configure_zone_capacitance_multiplier</name>
+  <uid>637bf7bb-25be-4dd7-a463-4cc0cef99315</uid>
+  <version_id>3d13a214-13a3-48e7-bfe2-fe8ad73c1198</version_id>
+  <version_modified>2025-08-04T22:28:35Z</version_modified>
+  <xml_checksum>78A3C1A7</xml_checksum>
+  <class_name>CreateAndConfigureZoneCapacitanceMultiplier</class_name>
+  <display_name>Create and Configure ZoneCapacitanceMultiplier</display_name>
+  <description>Creates ZoneCapacitanceMultiplier fully configurable objects for the requested zones. If you a user needs different capacitance multiplier values for different zones, use multiple measures in a workflow and request objects for the different zone names.</description>
+  <modeler_description>Creates ZoneCapacitanceMultiplier fully configurable objects for the requested zones. If you a user needs different capacitance multiplier values for different zones, use multiple measures in a workflow and request objects for the different zone names.
+
+Description of this object from the documentation:
+"This object is an advanced feature that can be used to control the effective storage capacity of the zone. Capacitance multipliers of 1.0 indicate the capacitance is that of the (moist) air in the volume of the specified zone. This multiplier can be increased if the zone air capacitance needs to be increased for stability of the simulation or to allow modeling higher or lower levels of damping of behavior over time. The multipliers are applied to the base value corresponding to the total capacitance for the zone’s volume of air at current zone (moist) conditions."</modeler_description>
+  <arguments>
+    <argument>
+      <name>zone_name</name>
+      <display_name>Zone Name/Names</display_name>
+      <description>The name of the zone to which the capacitance multiplier will be applied. If you want to apply the same multiplier to multiple zones, use a ZoneList object. Supports Regex. * to apply the multiplier to all zones.</description>
+      <type>String</type>
+      <required>true</required>
+      <model_dependent>false</model_dependent>
+      <default_value>*</default_value>
+    </argument>
+    <argument>
+      <name>temperature_capacity_multiplier</name>
+      <display_name>Temperature Capacity Multiplier</display_name>
+      <description>This field is used to alter the effective heat capacitance of the zone air volume. This affects the transient calculations of zone air temperature. Values greater than 1.0 have the effect of smoothing or damping the rate of change in the temperature of zone air from timestep to timestep.</description>
+      <type>Double</type>
+      <required>true</required>
+      <model_dependent>false</model_dependent>
+      <default_value>1</default_value>
+    </argument>
+    <argument>
+      <name>humidity_capacity_multiplier</name>
+      <display_name>Humidity Capacity Multiplier</display_name>
+      <description>This field is used to alter the effective moisture capacitance of the zone air volume. This affects the transient calculations of zone air humidity ratio. Values greater than 1.0 have the effect of smoothing, or damping, the rate of change in the water content of zone air from timestep to timestep.</description>
+      <type>Double</type>
+      <required>true</required>
+      <model_dependent>false</model_dependent>
+      <default_value>1</default_value>
+    </argument>
+    <argument>
+      <name>carbon_dioxide_capacity_multiplier</name>
+      <display_name>Carbon Dioxide Capacity Multiplier</display_name>
+      <description>This field is used to alter the effective carbon dioxide capacitance of the zone air volume. This affects the transient calculations of zone air carbon dioxide concentration. Values greater than 1.0 have the effect of smoothing or damping the rate of change in the carbon dioxide level of zone air from timestep to timestep.</description>
+      <type>Double</type>
+      <required>true</required>
+      <model_dependent>false</model_dependent>
+      <default_value>1</default_value>
+    </argument>
+    <argument>
+      <name>generic_contaminant_capacity_multiplier</name>
+      <display_name>Generic Contaminant Capacity Multiplier</display_name>
+      <description>This field is used to alter the effective generic contaminant capacitance of the zone air volume. This affects the transient calculations of zone air generic contaminant concentration. Values greater than 1.0 have the effect of smoothing or damping the rate of change in the generic contaminant level of zone air from timestep to timestep.</description>
+      <type>Double</type>
+      <required>true</required>
+      <model_dependent>false</model_dependent>
+      <default_value>1</default_value>
+    </argument>
+  </arguments>
+  <outputs />
+  <provenances />
+  <tags>
+    <tag>Envelope.Opaque</tag>
+  </tags>
+  <attributes>
+    <attribute>
+      <name>Measure Type</name>
+      <value>EnergyPlusMeasure</value>
+      <datatype>string</datatype>
+    </attribute>
+    <attribute>
+      <name>Measure Language</name>
+      <value>Ruby</value>
+      <datatype>string</datatype>
+    </attribute>
+    <attribute>
+      <name>Intended Software Tool</name>
+      <value>OpenStudio Application</value>
+      <datatype>string</datatype>
+    </attribute>
+    <attribute>
+      <name>Intended Software Tool</name>
+      <value>Parametric Analysis Tool</value>
+      <datatype>string</datatype>
+    </attribute>
+    <attribute>
+      <name>Intended Use Case</name>
+      <value>Model Articulation</value>
+      <datatype>string</datatype>
+    </attribute>
+    <attribute>
+      <name>Intended Use Case</name>
+      <value>Calibration</value>
+      <datatype>string</datatype>
+    </attribute>
+    <attribute>
+      <name>Intended Use Case</name>
+      <value>Sensitivity Analysis</value>
+      <datatype>string</datatype>
+    </attribute>
+  </attributes>
+  <files>
+    <file>
+      <filename>LICENSE.md</filename>
+      <filetype>md</filetype>
+      <usage_type>license</usage_type>
+      <checksum>CD7F5672</checksum>
+    </file>
+    <file>
+      <filename>README.md</filename>
+      <filetype>md</filetype>
+      <usage_type>readme</usage_type>
+      <checksum>EF5425E0</checksum>
+    </file>
+    <file>
+      <filename>README.md.erb</filename>
+      <filetype>erb</filetype>
+      <usage_type>readmeerb</usage_type>
+      <checksum>F1C26127</checksum>
+    </file>
+    <file>
+      <filename>.gitkeep</filename>
+      <filetype>gitkeep</filetype>
+      <usage_type>doc</usage_type>
+      <checksum>00000000</checksum>
+    </file>
+    <file>
+      <version>
+        <software_program>OpenStudio</software_program>
+        <identifier>3.9.0</identifier>
+        <min_compatible>3.9.0</min_compatible>
+      </version>
+      <filename>measure.rb</filename>
+      <filetype>rb</filetype>
+      <usage_type>script</usage_type>
+      <checksum>B7DE17AC</checksum>
+    </file>
+    <file>
+      <filename>create_and_configure_zone_capacitance_multiplier_test.rb</filename>
+      <filetype>rb</filetype>
+      <usage_type>test</usage_type>
+      <checksum>4A6EC6E4</checksum>
+    </file>
+  </files>
+</measure>

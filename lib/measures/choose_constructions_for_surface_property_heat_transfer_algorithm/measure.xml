@@ -1,0 +1,132 @@
+<?xml version="1.0"?>
+<measure>
+  <schema_version>3.1</schema_version>
+  <name>choose_constructions_for_ht_algorithm</name>
+  <uid>4e89d54b-9372-4234-a37d-15f27e2d55d8</uid>
+  <version_id>809d67ec-b522-4fb7-9574-7c9083b9e64c</version_id>
+  <version_modified>2025-08-19T21:56:30Z</version_modified>
+  <xml_checksum>82E5667F</xml_checksum>
+  <class_name>ChooseConstructionsForHTAlgorithm</class_name>
+  <display_name>Choose Constructions for SurfaceProperty:HeatTransferAlgorithm</display_name>
+  <description>Presents a checkbox for each Construction in the model so you can pick which ones to tag with a SurfaceProperty:HeatTransferAlgorithm:Construction and which algorithm to use.</description>
+  <modeler_description>Loops through all Construction objects, makes one Bool argument per construction, and then in run() adds a SurfaceProperty:HeatTransferAlgorithm:Construction for each checked construction using the chosen algorithm.</modeler_description>
+  <arguments>
+    <argument>
+      <name>custom_constructions</name>
+      <display_name>Optional Comma Separated List of Custom Constructions</display_name>
+      <description>If you have added custom constructions in a measure workflow, you can enter the names here. Those are searched for in addition to the ones checked above.</description>
+      <type>String</type>
+      <required>false</required>
+      <model_dependent>false</model_dependent>
+    </argument>
+    <argument>
+      <name>algorithm</name>
+      <display_name>Select Heat Transfer Algorithm</display_name>
+      <type>Choice</type>
+      <required>true</required>
+      <model_dependent>false</model_dependent>
+      <default_value>MoisturePenetrationDepthConductionTransferFunction</default_value>
+      <choices>
+        <choice>
+          <value>MoisturePenetrationDepthConductionTransferFunction</value>
+          <display_name>MoisturePenetrationDepthConductionTransferFunction</display_name>
+        </choice>
+        <choice>
+          <value>CombinedHeatAndMoistureFiniteElement</value>
+          <display_name>CombinedHeatAndMoistureFiniteElement</display_name>
+        </choice>
+        <choice>
+          <value>ConductionFiniteDifference</value>
+          <display_name>ConductionFiniteDifference</display_name>
+        </choice>
+        <choice>
+          <value>ConductionTransferFunction</value>
+          <display_name>ConductionTransferFunction</display_name>
+        </choice>
+      </choices>
+    </argument>
+    <argument>
+      <name>timestep</name>
+      <display_name>Change the Timesteps per Hour?</display_name>
+      <description>Sets a new timestep, leave blank for no change.</description>
+      <type>Integer</type>
+      <required>false</required>
+      <model_dependent>false</model_dependent>
+    </argument>
+  </arguments>
+  <outputs />
+  <provenances />
+  <tags>
+    <tag>Envelope.Opaque</tag>
+  </tags>
+  <attributes>
+    <attribute>
+      <name>Measure Type</name>
+      <value>EnergyPlusMeasure</value>
+      <datatype>string</datatype>
+    </attribute>
+    <attribute>
+      <name>Measure Language</name>
+      <value>Ruby</value>
+      <datatype>string</datatype>
+    </attribute>
+    <attribute>
+      <name>Intended Software Tool</name>
+      <value>OpenStudio Application</value>
+      <datatype>string</datatype>
+    </attribute>
+    <attribute>
+      <name>Intended Software Tool</name>
+      <value>Parametric Analysis Tool</value>
+      <datatype>string</datatype>
+    </attribute>
+    <attribute>
+      <name>Intended Use Case</name>
+      <value>Model Articulation</value>
+      <datatype>string</datatype>
+    </attribute>
+  </attributes>
+  <files>
+    <file>
+      <filename>LICENSE.md</filename>
+      <filetype>md</filetype>
+      <usage_type>license</usage_type>
+      <checksum>CD7F5672</checksum>
+    </file>
+    <file>
+      <filename>README.md</filename>
+      <filetype>md</filetype>
+      <usage_type>readme</usage_type>
+      <checksum>8BAE3DBF</checksum>
+    </file>
+    <file>
+      <filename>README.md.erb</filename>
+      <filetype>erb</filetype>
+      <usage_type>readmeerb</usage_type>
+      <checksum>F1C26127</checksum>
+    </file>
+    <file>
+      <filename>.gitkeep</filename>
+      <filetype>gitkeep</filetype>
+      <usage_type>doc</usage_type>
+      <checksum>00000000</checksum>
+    </file>
+    <file>
+      <version>
+        <software_program>OpenStudio</software_program>
+        <identifier>3.9.0</identifier>
+        <min_compatible>3.9.0</min_compatible>
+      </version>
+      <filename>measure.rb</filename>
+      <filetype>rb</filetype>
+      <usage_type>script</usage_type>
+      <checksum>F17A9E86</checksum>
+    </file>
+    <file>
+      <filename>choose_constructions_for_surface_property_heat_transfer_algorithm_test.rb</filename>
+      <filetype>rb</filetype>
+      <usage_type>test</usage_type>
+      <checksum>7F081A63</checksum>
+    </file>
+  </files>
+</measure>
