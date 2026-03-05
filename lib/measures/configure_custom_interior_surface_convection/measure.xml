@@ -1,0 +1,216 @@
+<?xml version="1.0"?>
+<measure>
+  <schema_version>3.1</schema_version>
+  <name>configure_custom_interior_surface_convection</name>
+  <uid>6aaf3484-2a8d-4921-a9e1-eabff01abee1</uid>
+  <version_id>d4c1bcc9-a76e-497f-839a-ff984a106030</version_id>
+  <version_modified>2025-12-16T23:27:43Z</version_modified>
+  <xml_checksum>DE7E6A24</xml_checksum>
+  <class_name>ConfigureCustomInteriorSurfaceConvection</class_name>
+  <display_name>Configure Custom Interior Surface Convection</display_name>
+  <description>Sets inside-face convection for selected surfaces using h = C · |ΔT|^n, with a second (reduced) coefficient and exponent for horizontal surfaces. Walls always use the baseline C,n. Floors/Ceilings switch between baseline vs reduced by the sign of ΔT. Recommended starting points (TARP-inspired): Walls C≈1.31, Horizontal enhanced C≈1.52, Horizontal reduced C≈0.76, n≈1/3.</description>
+  <modeler_description>For selected opaque surfaces (interior+exterior), this attaches SurfaceProperty:ConvectionCoefficients on the INSIDE face and drives them via EMS. Law: h = C · |(T_si - T_air)|^n. Walls always use (C_base, n_base). Floors use (C_base, n_base) when RAW_DT&gt;0 (surface warmer than air), else (C_red, n_red). Ceilings use (C_base, n_base) when RAW_DT&lt;0 (surface cooler than air), else (C_red, n_red). Suggested seeds: Walls C≈1.31, Horizontal enhanced C≈1.52, Horizontal reduced C≈0.76, with n≈1/3. Choose C_base according to the surface category you're targeting.</modeler_description>
+  <arguments>
+    <argument>
+      <name>target_surface_type</name>
+      <display_name>Target Surface Category</display_name>
+      <type>Choice</type>
+      <required>true</required>
+      <model_dependent>false</model_dependent>
+      <default_value>Walls</default_value>
+      <choices>
+        <choice>
+          <value>Walls</value>
+          <display_name>Walls</display_name>
+        </choice>
+        <choice>
+          <value>Floors</value>
+          <display_name>Floors</display_name>
+        </choice>
+        <choice>
+          <value>Ceilings</value>
+          <display_name>Ceilings</display_name>
+        </choice>
+        <choice>
+          <value>InternalMass</value>
+          <display_name>InternalMass</display_name>
+        </choice>
+      </choices>
+    </argument>
+    <argument>
+      <name>coeff_base</name>
+      <display_name>Baseline Coefficient C_base (W/m2-K / K^n_base)</display_name>
+      <description>Walls use this. Floors/Ceilings use this in the “enhanced” branch.</description>
+      <type>Double</type>
+      <required>true</required>
+      <model_dependent>false</model_dependent>
+      <default_value>1.31</default_value>
+    </argument>
+    <argument>
+      <name>coeff_reduced</name>
+      <display_name>Reduced Coefficient for Horizontal C_red (W/m2-K / K^n_red)</display_name>
+      <description>Used only by Floors/Ceilings in the “reduced” branch.</description>
+      <type>Double</type>
+      <required>true</required>
+      <model_dependent>false</model_dependent>
+      <default_value>0.76</default_value>
+    </argument>
+    <argument>
+      <name>power_base</name>
+      <display_name>Exponent n_base</display_name>
+      <type>Double</type>
+      <required>true</required>
+      <model_dependent>false</model_dependent>
+      <default_value>0.333333</default_value>
+    </argument>
+    <argument>
+      <name>power_reduced</name>
+      <display_name>Exponent n_red (reduced branch)</display_name>
+      <type>Double</type>
+      <required>true</required>
+      <model_dependent>false</model_dependent>
+      <default_value>0.333333</default_value>
+    </argument>
+    <argument>
+      <name>overwrite_existing</name>
+      <display_name>Update Inside Coefficient if SPCC Already Exists?</display_name>
+      <type>Boolean</type>
+      <required>true</required>
+      <model_dependent>false</model_dependent>
+      <default_value>true</default_value>
+      <choices>
+        <choice>
+          <value>true</value>
+          <display_name>true</display_name>
+        </choice>
+        <choice>
+          <value>false</value>
+          <display_name>false</display_name>
+        </choice>
+      </choices>
+    </argument>
+    <argument>
+      <name>report_hconv</name>
+      <display_name>Report H_OUT, RAW_DT, and DT?</display_name>
+      <type>Boolean</type>
+      <required>false</required>
+      <model_dependent>false</model_dependent>
+      <default_value>false</default_value>
+      <choices>
+        <choice>
+          <value>true</value>
+          <display_name>true</display_name>
+        </choice>
+        <choice>
+          <value>false</value>
+          <display_name>false</display_name>
+        </choice>
+      </choices>
+    </argument>
+    <argument>
+      <name>internal_mass_enhanced_branch</name>
+      <display_name>Internal Mass: Use Enhanced/Reduced Branch (like Floors/Ceilings)?</display_name>
+      <description>If true, internal mass uses enhanced vs reduced convection based on temperature direction (like floors/ceilings). If false, it uses the fixed (walls) branch.</description>
+      <type>Boolean</type>
+      <required>false</required>
+      <model_dependent>false</model_dependent>
+      <default_value>true</default_value>
+      <choices>
+        <choice>
+          <value>true</value>
+          <display_name>true</display_name>
+        </choice>
+        <choice>
+          <value>false</value>
+          <display_name>false</display_name>
+        </choice>
+      </choices>
+    </argument>
+  </arguments>
+  <outputs />
+  <provenances />
+  <tags>
+    <tag>Envelope.Opaque</tag>
+  </tags>
+  <attributes>
+    <attribute>
+      <name>Measure Type</name>
+      <value>ModelMeasure</value>
+      <datatype>string</datatype>
+    </attribute>
+    <attribute>
+      <name>Measure Language</name>
+      <value>Ruby</value>
+      <datatype>string</datatype>
+    </attribute>
+    <attribute>
+      <name>Intended Software Tool</name>
+      <value>Apply Measure Now</value>
+      <datatype>string</datatype>
+    </attribute>
+    <attribute>
+      <name>Intended Software Tool</name>
+      <value>OpenStudio Application</value>
+      <datatype>string</datatype>
+    </attribute>
+    <attribute>
+      <name>Intended Software Tool</name>
+      <value>Parametric Analysis Tool</value>
+      <datatype>string</datatype>
+    </attribute>
+    <attribute>
+      <name>Intended Use Case</name>
+      <value>Model Articulation</value>
+      <datatype>string</datatype>
+    </attribute>
+  </attributes>
+  <files>
+    <file>
+      <filename>LICENSE.md</filename>
+      <filetype>md</filetype>
+      <usage_type>license</usage_type>
+      <checksum>CD7F5672</checksum>
+    </file>
+    <file>
+      <filename>README.md</filename>
+      <filetype>md</filetype>
+      <usage_type>readme</usage_type>
+      <checksum>9666485C</checksum>
+    </file>
+    <file>
+      <filename>README.md.erb</filename>
+      <filetype>erb</filetype>
+      <usage_type>readmeerb</usage_type>
+      <checksum>F1C26127</checksum>
+    </file>
+    <file>
+      <filename>.gitkeep</filename>
+      <filetype>gitkeep</filetype>
+      <usage_type>doc</usage_type>
+      <checksum>00000000</checksum>
+    </file>
+    <file>
+      <version>
+        <software_program>OpenStudio</software_program>
+        <identifier>3.9.0</identifier>
+        <min_compatible>3.9.0</min_compatible>
+      </version>
+      <filename>measure.rb</filename>
+      <filetype>rb</filetype>
+      <usage_type>script</usage_type>
+      <checksum>82160255</checksum>
+    </file>
+    <file>
+      <filename>configure_custom_interior_surface_convection_test.rb</filename>
+      <filetype>rb</filetype>
+      <usage_type>test</usage_type>
+      <checksum>3C18D9CF</checksum>
+    </file>
+    <file>
+      <filename>example_model.osm</filename>
+      <filetype>osm</filetype>
+      <usage_type>test</usage_type>
+      <checksum>D6BD40D0</checksum>
+    </file>
+  </files>
+</measure>
