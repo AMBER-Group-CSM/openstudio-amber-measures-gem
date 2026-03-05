@@ -1,0 +1,499 @@
+<?xml version="1.0"?>
+<measure>
+  <schema_version>3.1</schema_version>
+  <name>configure_space_infiltration_design_flow_rate</name>
+  <uid>3d610183-199a-4eb5-afed-4ee6aac38a05</uid>
+  <version_id>62d2c6b6-e70c-4972-a9dc-f04e9d2fae55</version_id>
+  <version_modified>2025-11-18T23:21:36Z</version_modified>
+  <xml_checksum>CFE3B62C</xml_checksum>
+  <class_name>ConfigureSpaceInfiltrationDesignFlowRate</class_name>
+  <display_name>Configure Space Infiltration Design Flow Rate</display_name>
+  <description>Configures Space Infiltration Design Flow Rate objects for all spaces in zones with at least one exterior surface. The user can either provide their own design flow coefficients or use NIST-derived coefficients (Ng et al.) based on building type, climate zone, and air barrier. The measure creates paired HVAC-on and HVAC-off infiltration objects per exterior space, with separate coefficients and schedules for each.</description>
+  <modeler_description>This measure removes existing infiltration objects if requested, determines which thermal zones have exterior exposure, constructs HVAC ON and OFF schedules from user input or by inferring from the largest air loop and/or building hours of operation, optionally rescales a user-supplied design infiltration value from a measured pressure to a reference pressure, and creates new SpaceInfiltrationDesignFlowRate objects for spaces in external thermal zones. For each qualifying space, two infiltration objects are created: one active when the HVAC is on (using a binary HVAC ON schedule and the HVAC-on ABCD coefficients) and one active when the HVAC is off (using a complementary HVAC OFF schedule and the HVAC-off ABCD coefficients). Coefficients may be explicitly provided or automatically looked up from NIST infiltration correlations.</modeler_description>
+  <arguments>
+    <argument>
+      <name>design_flow_rate_calculation_method</name>
+      <display_name>Design Flow Rate Calculation Method</display_name>
+      <description>Select the design flow rate calculation method for the SpaceInfiltrationDesignFlowRate objects (e.g., Flow/Zone [m^3/s], Flow/Area [m^3/s-m^2], Flow/ExteriorSurfaceArea [m^3/s-m^2], Flow/ExteriorWallArea [m^3/s-m^2], AirChanges/Hour [1/h]).</description>
+      <type>Choice</type>
+      <required>true</required>
+      <model_dependent>false</model_dependent>
+      <default_value>Flow/Space</default_value>
+      <choices>
+        <choice>
+          <value>Flow/Space</value>
+          <display_name>Flow/Space</display_name>
+        </choice>
+        <choice>
+          <value>Flow/Area</value>
+          <display_name>Flow/Area</display_name>
+        </choice>
+        <choice>
+          <value>Flow/ExteriorArea</value>
+          <display_name>Flow/ExteriorArea</display_name>
+        </choice>
+        <choice>
+          <value>Flow/ExteriorWallArea</value>
+          <display_name>Flow/ExteriorWallArea</display_name>
+        </choice>
+        <choice>
+          <value>AirChanges/Hour</value>
+          <display_name>AirChanges/Hour</display_name>
+        </choice>
+      </choices>
+    </argument>
+    <argument>
+      <name>design_flow_value</name>
+      <display_name>Design Flow Value for Selected Method</display_name>
+      <description>Numeric design flow value consistent with the chosen calculation method. If your design flow is given in (cfm/ft^2) at a given pressure, convert to (m^3/h-m^2) by multiplying by 18.288 (m-min/ft-hr); then, if needed, convert hours to seconds.</description>
+      <type>Double</type>
+      <required>true</required>
+      <model_dependent>false</model_dependent>
+      <default_value>0.0003</default_value>
+    </argument>
+    <argument>
+      <name>measured_pressure</name>
+      <display_name>Measured Pressure for Design Flow (Pa)</display_name>
+      <description>Pressure at which the design flow value was measured (e.g., from a pressurization test). Used only if "Scale Design Flow to Reference Pressure" is enabled.</description>
+      <type>Double</type>
+      <required>false</required>
+      <model_dependent>false</model_dependent>
+      <default_value>75</default_value>
+    </argument>
+    <argument>
+      <name>reference_pressure</name>
+      <display_name>Reference (Design) Pressure for Simulation (Pa)</display_name>
+      <description>Reference pressure at which the design infiltration value should be applied in the simulation. If your design flow is given in (cfm/ft^2) at a given pressure, first convert to (m^3/h-m^2) by multiplying by 18.288 (m-min/ft-hr), then convert to (m^3/s-m^2) as needed, and finally scale between pressures if desired.</description>
+      <type>Double</type>
+      <required>false</required>
+      <model_dependent>false</model_dependent>
+      <default_value>4</default_value>
+    </argument>
+    <argument>
+      <name>scale_to_reference_pressure</name>
+      <display_name>Scale Design Flow from Measured Pressure to Reference Pressure?</display_name>
+      <description>If true, the design flow value is scaled from the measured pressure to the reference pressure using a power-law relationship (exponent ~0.65).</description>
+      <type>Boolean</type>
+      <required>false</required>
+      <model_dependent>false</model_dependent>
+      <default_value>false</default_value>
+      <choices>
+        <choice>
+          <value>true</value>
+          <display_name>true</display_name>
+        </choice>
+        <choice>
+          <value>false</value>
+          <display_name>false</display_name>
+        </choice>
+      </choices>
+    </argument>
+    <argument>
+      <name>use_nist_coefficients</name>
+      <display_name>Use NIST Infiltration Correlation Coefficients?</display_name>
+      <description>If true, HVAC on/off infiltration coefficients (A, B, C, D) are looked up from NIST correlations based on building type, climate zone, and air barrier; user-provided coefficients are ignored.</description>
+      <type>Boolean</type>
+      <required>false</required>
+      <model_dependent>false</model_dependent>
+      <default_value>false</default_value>
+      <choices>
+        <choice>
+          <value>true</value>
+          <display_name>true</display_name>
+        </choice>
+        <choice>
+          <value>false</value>
+          <display_name>false</display_name>
+        </choice>
+      </choices>
+    </argument>
+    <argument>
+      <name>climate_zone</name>
+      <display_name>Climate Zone for NIST Coefficients</display_name>
+      <description>ASHRAE climate zone to use for NIST infiltration correlations. "Lookup From Model" will attempt to infer from the model climate zones (ASHRAE or mapped from CEC).</description>
+      <type>Choice</type>
+      <required>false</required>
+      <model_dependent>false</model_dependent>
+      <default_value>Lookup From Model</default_value>
+      <choices>
+        <choice>
+          <value>1A</value>
+          <display_name>1A</display_name>
+        </choice>
+        <choice>
+          <value>1B</value>
+          <display_name>1B</display_name>
+        </choice>
+        <choice>
+          <value>2A</value>
+          <display_name>2A</display_name>
+        </choice>
+        <choice>
+          <value>2B</value>
+          <display_name>2B</display_name>
+        </choice>
+        <choice>
+          <value>3A</value>
+          <display_name>3A</display_name>
+        </choice>
+        <choice>
+          <value>3B</value>
+          <display_name>3B</display_name>
+        </choice>
+        <choice>
+          <value>3C</value>
+          <display_name>3C</display_name>
+        </choice>
+        <choice>
+          <value>4A</value>
+          <display_name>4A</display_name>
+        </choice>
+        <choice>
+          <value>4B</value>
+          <display_name>4B</display_name>
+        </choice>
+        <choice>
+          <value>4C</value>
+          <display_name>4C</display_name>
+        </choice>
+        <choice>
+          <value>5A</value>
+          <display_name>5A</display_name>
+        </choice>
+        <choice>
+          <value>5B</value>
+          <display_name>5B</display_name>
+        </choice>
+        <choice>
+          <value>5C</value>
+          <display_name>5C</display_name>
+        </choice>
+        <choice>
+          <value>6A</value>
+          <display_name>6A</display_name>
+        </choice>
+        <choice>
+          <value>6B</value>
+          <display_name>6B</display_name>
+        </choice>
+        <choice>
+          <value>7A</value>
+          <display_name>7A</display_name>
+        </choice>
+        <choice>
+          <value>8A</value>
+          <display_name>8A</display_name>
+        </choice>
+        <choice>
+          <value>Lookup From Model</value>
+          <display_name>Lookup From Model</display_name>
+        </choice>
+      </choices>
+    </argument>
+    <argument>
+      <name>building_type</name>
+      <display_name>Building Type for NIST Coefficients</display_name>
+      <description>Building type to use for NIST infiltration correlations. "Lookup From Model" will infer the closest matching NIST prototype from the model standards building type and floor area.</description>
+      <type>Choice</type>
+      <required>false</required>
+      <model_dependent>false</model_dependent>
+      <default_value>Lookup From Model</default_value>
+      <choices>
+        <choice>
+          <value>SecondarySchool</value>
+          <display_name>SecondarySchool</display_name>
+        </choice>
+        <choice>
+          <value>PrimarySchool</value>
+          <display_name>PrimarySchool</display_name>
+        </choice>
+        <choice>
+          <value>SmallOffice</value>
+          <display_name>SmallOffice</display_name>
+        </choice>
+        <choice>
+          <value>MediumOffice</value>
+          <display_name>MediumOffice</display_name>
+        </choice>
+        <choice>
+          <value>SmallHotel</value>
+          <display_name>SmallHotel</display_name>
+        </choice>
+        <choice>
+          <value>LargeHotel</value>
+          <display_name>LargeHotel</display_name>
+        </choice>
+        <choice>
+          <value>RetailStandalone</value>
+          <display_name>RetailStandalone</display_name>
+        </choice>
+        <choice>
+          <value>RetailStripmall</value>
+          <display_name>RetailStripmall</display_name>
+        </choice>
+        <choice>
+          <value>Hospital</value>
+          <display_name>Hospital</display_name>
+        </choice>
+        <choice>
+          <value>MidriseApartment</value>
+          <display_name>MidriseApartment</display_name>
+        </choice>
+        <choice>
+          <value>HighriseApartment</value>
+          <display_name>HighriseApartment</display_name>
+        </choice>
+        <choice>
+          <value>Lookup From Model</value>
+          <display_name>Lookup From Model</display_name>
+        </choice>
+      </choices>
+    </argument>
+    <argument>
+      <name>air_barrier</name>
+      <display_name>Building Has Air Barrier? (For NIST Coefficients)</display_name>
+      <description>If true, use NIST coefficients for buildings with an air barrier. If false, use coefficients for buildings without an air barrier.</description>
+      <type>Boolean</type>
+      <required>false</required>
+      <model_dependent>false</model_dependent>
+      <default_value>false</default_value>
+      <choices>
+        <choice>
+          <value>true</value>
+          <display_name>true</display_name>
+        </choice>
+        <choice>
+          <value>false</value>
+          <display_name>false</display_name>
+        </choice>
+      </choices>
+    </argument>
+    <argument>
+      <name>constant_term_coefficient_on</name>
+      <display_name>HVAC ON: Constant Term Coefficient (A_on)</display_name>
+      <description>Constant term coefficient in the infiltration correlation when HVAC is ON. Ignored if NIST coefficients are used.</description>
+      <type>Double</type>
+      <required>true</required>
+      <model_dependent>false</model_dependent>
+      <default_value>1</default_value>
+    </argument>
+    <argument>
+      <name>temperature_term_coefficient_on</name>
+      <display_name>HVAC ON: Temperature Term Coefficient (B_on)</display_name>
+      <description>Temperature term coefficient in the infiltration correlation when HVAC is ON. Ignored if NIST coefficients are used.</description>
+      <type>Double</type>
+      <required>true</required>
+      <model_dependent>false</model_dependent>
+      <default_value>0</default_value>
+    </argument>
+    <argument>
+      <name>velocity_term_coefficient_on</name>
+      <display_name>HVAC ON: Velocity Term Coefficient (C_on)</display_name>
+      <description>Wind speed term coefficient in the infiltration correlation when HVAC is ON. Ignored if NIST coefficients are used.</description>
+      <type>Double</type>
+      <required>true</required>
+      <model_dependent>false</model_dependent>
+      <default_value>0</default_value>
+    </argument>
+    <argument>
+      <name>velocity_squared_term_coefficient_on</name>
+      <display_name>HVAC ON: Velocity Squared Term Coefficient (D_on)</display_name>
+      <description>Wind speed squared term coefficient in the infiltration correlation when HVAC is ON. Ignored if NIST coefficients are used.</description>
+      <type>Double</type>
+      <required>true</required>
+      <model_dependent>false</model_dependent>
+      <default_value>0</default_value>
+    </argument>
+    <argument>
+      <name>constant_term_coefficient_off</name>
+      <display_name>HVAC OFF: Constant Term Coefficient (A_off)</display_name>
+      <description>Constant term coefficient in the infiltration correlation when HVAC is OFF. Ignored if NIST coefficients are used.</description>
+      <type>Double</type>
+      <required>true</required>
+      <model_dependent>false</model_dependent>
+      <default_value>1</default_value>
+    </argument>
+    <argument>
+      <name>temperature_term_coefficient_off</name>
+      <display_name>HVAC OFF: Temperature Term Coefficient (B_off)</display_name>
+      <description>Temperature term coefficient in the infiltration correlation when HVAC is OFF. Ignored if NIST coefficients are used.</description>
+      <type>Double</type>
+      <required>true</required>
+      <model_dependent>false</model_dependent>
+      <default_value>0</default_value>
+    </argument>
+    <argument>
+      <name>velocity_term_coefficient_off</name>
+      <display_name>HVAC OFF: Velocity Term Coefficient (C_off)</display_name>
+      <description>Wind speed term coefficient in the infiltration correlation when HVAC is OFF. Ignored if NIST coefficients are used.</description>
+      <type>Double</type>
+      <required>true</required>
+      <model_dependent>false</model_dependent>
+      <default_value>0</default_value>
+    </argument>
+    <argument>
+      <name>velocity_squared_term_coefficient_off</name>
+      <display_name>HVAC OFF: Velocity Squared Term Coefficient (D_off)</display_name>
+      <description>Wind speed squared term coefficient in the infiltration correlation when HVAC is OFF. Ignored if NIST coefficients are used.</description>
+      <type>Double</type>
+      <required>true</required>
+      <model_dependent>false</model_dependent>
+      <default_value>0</default_value>
+    </argument>
+    <argument>
+      <name>hvac_operating_schedule</name>
+      <display_name>HVAC Operating (Availability) Schedule</display_name>
+      <description>Schedule that represents when the HVAC system is available/operating. "Lookup From Model" will use the availability schedule from the system serving the largest floor area or the building hours-of-operation schedule.</description>
+      <type>Choice</type>
+      <required>false</required>
+      <model_dependent>true</model_dependent>
+      <default_value>Lookup From Model</default_value>
+      <choices>
+        <choice>
+          <value>Lookup From Model</value>
+          <display_name>Lookup From Model</display_name>
+        </choice>
+      </choices>
+    </argument>
+    <argument>
+      <name>hvac_non_operating_schedule</name>
+      <display_name>HVAC Non-Operating (OFF) Schedule</display_name>
+      <description>Schedule used for infiltration when the HVAC system is off. You may select a schedule directly, use "Always On", or choose "Infer From HVAC Operating Schedule" to create an inverse of the HVAC ON schedule.</description>
+      <type>Choice</type>
+      <required>false</required>
+      <model_dependent>true</model_dependent>
+      <default_value>Infer From HVAC Operating Schedule</default_value>
+      <choices>
+        <choice>
+          <value>Infer From HVAC Operating Schedule</value>
+          <display_name>Infer From HVAC Operating Schedule</display_name>
+        </choice>
+        <choice>
+          <value>Always On</value>
+          <display_name>Always On</display_name>
+        </choice>
+      </choices>
+    </argument>
+    <argument>
+      <name>remove_existing_infiltration</name>
+      <display_name>Remove All Existing Infiltration Objects?</display_name>
+      <description>If true, all existing SpaceInfiltrationDesignFlowRate and SpaceInfiltrationEffectiveLeakageArea objects will be removed before creating new ones.</description>
+      <type>Boolean</type>
+      <required>false</required>
+      <model_dependent>false</model_dependent>
+      <default_value>true</default_value>
+      <choices>
+        <choice>
+          <value>true</value>
+          <display_name>true</display_name>
+        </choice>
+        <choice>
+          <value>false</value>
+          <display_name>false</display_name>
+        </choice>
+      </choices>
+    </argument>
+  </arguments>
+  <outputs />
+  <provenances />
+  <tags>
+    <tag>Envelope.Infiltration</tag>
+  </tags>
+  <attributes>
+    <attribute>
+      <name>Measure Type</name>
+      <value>ModelMeasure</value>
+      <datatype>string</datatype>
+    </attribute>
+    <attribute>
+      <name>Measure Language</name>
+      <value>Ruby</value>
+      <datatype>string</datatype>
+    </attribute>
+    <attribute>
+      <name>Intended Software Tool</name>
+      <value>Apply Measure Now</value>
+      <datatype>string</datatype>
+    </attribute>
+    <attribute>
+      <name>Intended Software Tool</name>
+      <value>OpenStudio Application</value>
+      <datatype>string</datatype>
+    </attribute>
+    <attribute>
+      <name>Intended Software Tool</name>
+      <value>Parametric Analysis Tool</value>
+      <datatype>string</datatype>
+    </attribute>
+    <attribute>
+      <name>Intended Use Case</name>
+      <value>Model Articulation</value>
+      <datatype>string</datatype>
+    </attribute>
+    <attribute>
+      <name>Intended Use Case</name>
+      <value>Calibration</value>
+      <datatype>string</datatype>
+    </attribute>
+    <attribute>
+      <name>Intended Use Case</name>
+      <value>Sensitivity Analysis</value>
+      <datatype>string</datatype>
+    </attribute>
+  </attributes>
+  <files>
+    <file>
+      <filename>LICENSE.md</filename>
+      <filetype>md</filetype>
+      <usage_type>license</usage_type>
+      <checksum>CD7F5672</checksum>
+    </file>
+    <file>
+      <filename>README.md</filename>
+      <filetype>md</filetype>
+      <usage_type>readme</usage_type>
+      <checksum>20CCF59E</checksum>
+    </file>
+    <file>
+      <filename>README.md.erb</filename>
+      <filetype>erb</filetype>
+      <usage_type>readmeerb</usage_type>
+      <checksum>F1C26127</checksum>
+    </file>
+    <file>
+      <filename>.gitkeep</filename>
+      <filetype>gitkeep</filetype>
+      <usage_type>doc</usage_type>
+      <checksum>00000000</checksum>
+    </file>
+    <file>
+      <version>
+        <software_program>OpenStudio</software_program>
+        <identifier>3.9.0</identifier>
+        <min_compatible>3.9.0</min_compatible>
+      </version>
+      <filename>measure.rb</filename>
+      <filetype>rb</filetype>
+      <usage_type>script</usage_type>
+      <checksum>ED439982</checksum>
+    </file>
+    <file>
+      <filename>Data-NISTInfiltrationCorrelations.csv</filename>
+      <filetype>csv</filetype>
+      <usage_type>resource</usage_type>
+      <checksum>4D9DA845</checksum>
+    </file>
+    <file>
+      <filename>configure_space_infiltration_design_flow_rate_test.rb</filename>
+      <filetype>rb</filetype>
+      <usage_type>test</usage_type>
+      <checksum>F458CB1B</checksum>
+    </file>
+    <file>
+      <filename>example_model.osm</filename>
+      <filetype>osm</filetype>
+      <usage_type>test</usage_type>
+      <checksum>D6BD40D0</checksum>
+    </file>
+  </files>
+</measure>
